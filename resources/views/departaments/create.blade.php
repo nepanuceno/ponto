@@ -1,0 +1,60 @@
+@extends('adminlte::page')
+
+@section('title', 'Dashboard')
+
+@section('content_header')
+    <h1>Cadastro de Departamentos</h1>
+@stop
+
+@section('content')
+    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+    @if(session('danger'))
+    <div class="alert alert-danger">
+        {{ session('danger') }}
+    </div>
+    @endif
+    <div class="card card-info">
+        <form action="{{ isset($departament) ? url('departaments/'.$departament->id) : url('departaments') }}" method="POST">
+            <div class="card-body">
+                @csrf
+                @if(isset($departament))
+                        @method('PUT')
+                @endif
+
+                <div class="form-group">
+                    <div class="input-form">
+                        <label class="form-label" for="departament">Departamento</label>
+                        <input class="form-control" name="departament" id="departament" value="{{ isset($departament) ? $departament->name : '' }}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-form">
+                        <label class="form-label" for="departament">Departamento pai</label>
+                        <select class="form-control select2" name="parent">
+                            <option value="0">Nenhum</option>
+                            @foreach ($departaments as $item)
+                                <option value="{{ $item->id }}" {{ isset($departament) ? ($departament->parent_id == $item->id ? 'selected=selected':''):'' }}>{{ $item->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" type="submit">{{ isset($departament) ? 'Salvar' : 'Cadastrar' }}</button>
+                <a class="btn btn-secondary float-right" href="{{ route('departaments.index') }}">Voltar</a>
+            </div>
+        </form>
+    </div>
+@stop
+@section('js')
+    <script>
+    $('.select2').select2({
+        placeholder: 'Select an option'
+    });
+  </script>
+@stop

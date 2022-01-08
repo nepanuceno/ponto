@@ -6,6 +6,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\TimeSheetController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,19 +18,22 @@ use App\Http\Controllers\TimeSheetController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
-
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('departaments',DepartamentController::class);
-Route::resource('positions',PositionController::class);
-Route::resource('employees',EmployeeController::class);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('home');
+    });
 
-Route::get('time_sheets', [TimeSheetController::class, 'index'])->name('timesheets');
-Route::post('make-time-sheets', [TimeSheetController::class, 'makeTimeSheet'])->name('maketimesheets');
-Route::get('/employee/pdf', [TimeSheetController::class, 'createPDF']);
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('departaments',DepartamentController::class);
+    Route::resource('positions',PositionController::class);
+    Route::resource('employees',EmployeeController::class);
+
+    Route::get('time_sheets', [TimeSheetController::class, 'index'])->name('timesheets');
+    Route::post('make-time-sheets', [TimeSheetController::class, 'makeTimeSheet'])->name('maketimesheets');
+    Route::get('/employee/pdf', [TimeSheetController::class, 'createPDF']);
+
+});

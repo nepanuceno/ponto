@@ -279,6 +279,22 @@ return [
             'url' => 'time_sheets',
             'icon' => 'fas fa-calendar-alt',
         ],
+        ['header' => 'GERENCIAMENTO'],
+        [
+            'text' => 'Usuários',
+            'icon' => 'fas fa-users-cog',
+            'url' => 'users',
+        ],
+        [
+            'text' => 'Permissões',
+            'icon' => 'fas fa-user-lock',
+            'url' => 'permissions',
+        ],
+        [
+            'text' => 'Perfis',
+            'icon' => 'fas fa-user-shield',
+            'url' => 'roles',
+        ],
         // ['header' => 'account_settings'],
         // [
         //     'text' => 'profile',

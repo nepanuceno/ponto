@@ -22,7 +22,8 @@ class PermissionTableSeeder extends Seeder
             'employee-list',
             'employee-create',
             'employee-edit',
-            'employee-delete'
+            'employee-delete',
+            'print_time_sheet'
          ];
 
          foreach ($permissions as $permission) {

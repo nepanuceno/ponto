@@ -7,7 +7,7 @@
                 <h2>Gerenciamento de Permissões</h2>
             </div>
             <div class="pull-right">
-                @can('permission-create')
+                @can('permissao-create')
                     <a class="btn btn-success" href="{{ route('permissions.create') }}"> Criar nova Permissão</a>
                 @endcan
             </div>
@@ -48,11 +48,11 @@
                 <td>{{ $permission->name }}</td>
                 <td>
                     <a class="btn btn-info" href="{{ route('permissions.show', $permission->id) }}">Detalhes</a>
-                    @can('permission-edit')
+                    @can('permissao-edit')
                         <a class="btn btn-primary" href="{{ route('permissions.edit', $permission->id) }}">Editar</a>
                     @endcan
 
-                    @can('permission-delete')
+                    @can('permissao-delete')
                         {!! Form::open(['method' => 'DELETE', 'route' => ['permissions.destroy', $permission->id], 'style' => 'display:inline']) !!}
                         {!! Form::submit('Desativar', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}

@@ -15,7 +15,7 @@
 
             <div class="pull-right">
 
-                @can('role-create')
+                @can('perfil-create')
 
                     <a class="btn btn-success" href="{{ route('roles.create') }}"> Criar novo Perfil</a>
 
@@ -74,13 +74,13 @@
 
                     <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Detalhes</a>
 
-                    @can('role-edit')
+                    @can('perfil-edit')
 
                         <a class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}">Editar</a>
 
                     @endcan
 
-                    @can('role-delete')
+                    @can('perfil-delete')
 
                         {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
 

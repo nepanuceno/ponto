@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use DB;
 
 class PermissionController extends Controller
 {
@@ -14,10 +15,10 @@ class PermissionController extends Controller
      */
     function __construct()
     {
-        $this->middleware('permission:permission-list|permission-create|permission-edit|permission-delete', ['only' => ['index','store']]);
-        $this->middleware('permission:permission-create', ['only' => ['create','store']]);
-        $this->middleware('permission:permission-edit', ['only' => ['edit','update']]);
-        $this->middleware('permission:permission-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:permissao-list|permissao-create|permissao-edit|permissao-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:permissao-create', ['only' => ['create','store']]);
+        $this->middleware('permission:permissao-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:permissao-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -69,9 +70,8 @@ class PermissionController extends Controller
      */
     public function show($id)
     {
-        $permission = Permission::find($id)->get();
-        dd($permission);
-        return view('permission.show', compact('permission'));
+        $permission = Permission::find($id);
+        return view('permissions.show', compact('permission'));
     }
 
     /**
@@ -82,9 +82,9 @@ class PermissionController extends Controller
      */
     public function edit($id)
     {
-        $permission = Permission::find($id)->get();
+        $permission = Permission::find($id);
 
-        return view('permission.edit', compact('permission'));
+        return view('permissions.edit', compact('permission'));
     }
 
     /**

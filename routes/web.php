@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PositionController;
-use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\TimeSheetController;
+use App\Http\Controllers\DepartamentController;
 use App\Http\Controllers\Auth\RegisterController;
 
 /*
@@ -25,8 +27,10 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', function () {
         return view('home');
     });
-
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
 
     Route::resource('departaments',DepartamentController::class);
     Route::resource('positions',PositionController::class);

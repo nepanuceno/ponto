@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('adminlte::page')
 
 
 @section('content')
@@ -9,13 +9,13 @@
 
         <div class="pull-left">
 
-            <h2>Edit Role</h2>
+            <h2>Editar Perfil</h2>
 
         </div>
 
         <div class="pull-right">
 
-            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Back</a>
+            <a class="btn btn-primary" href="{{ route('roles.index') }}"> Voltar</a>
 
         </div>
 
@@ -26,9 +26,9 @@
 
 @if (count($errors) > 0)
 
-    <div class="alert alert-danger">
+    <div class="alert alert-danger alert-dismiss">
 
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
+        <strong>Whoops!</strong> Houve erro nos dados.<br><br>
 
         <ul>
 
@@ -53,9 +53,9 @@
 
         <div class="form-group">
 
-            <strong>Name:</strong>
+            <strong>Nome:</strong>
 
-            {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
+            {!! Form::text('name', null, array('placeholder' => 'Nome','class' => 'form-control')) !!}
 
         </div>
 
@@ -65,7 +65,7 @@
 
         <div class="form-group">
 
-            <strong>Permission:</strong>
+            <strong>Permissões:</strong>
 
             <br/>
 
@@ -85,7 +85,7 @@
 
     <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Salvar</button>
 
     </div>
 
@@ -93,7 +93,4 @@
 
 {!! Form::close() !!}
 
-
 @endsection
-
-<p class="text-center text-primary"><small>Tutorial by ItSolutionStuff.com</small></p>

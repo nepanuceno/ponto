@@ -3,91 +3,102 @@
 
 @section('content')
 
-<div class="row">
+    <div class="row">
 
-    <div class="col-lg-12 margin-tb">
+        <div class="col-lg-12 margin-tb">
 
-        <div class="pull-left">
+            <div class="pull-left">
 
-            <h2>Gerenciamento de Perfis</h2>
+                <h2>Gerenciamento de Perfis</h2>
 
-        </div>
+            </div>
 
-        <div class="pull-right">
+            <div class="pull-right">
 
-        @can('role-create')
+                @can('role-create')
 
-            <a class="btn btn-success" href="{{ route('roles.create') }}"> Criar novo Perfil</a>
+                    <a class="btn btn-success" href="{{ route('roles.create') }}"> Criar novo Perfil</a>
 
-            @endcan
+                @endcan
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
+
+    @if (session('success'))
+        <div class="alert alert-success alert-dismiss d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                <use xlink:href="#check-circle-fill" />
+            </svg>
+            <div class="ml-2">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+    @if (session('danger'))
+        <div class="alert alert-danger alert-dismiss d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill" />
+            </svg>
+            <div class="ml-2">
+                {{ session('danger') }}
+            </div>
+        </div>
+    @endif
 
 
-@if ($message = Session::get('success'))
+    <table class="table table-bordered">
 
-    <div class="alert alert-success">
+        <tr>
 
-        <p>{{ $message }}</p>
+            <th>No</th>
 
-    </div>
+            <th>Nome</th>
 
-@endif
+            <th width="280px">Ações</th>
 
+        </tr>
 
-<table class="table table-bordered">
+        @foreach ($roles as $key => $role)
 
-  <tr>
+            <tr>
 
-     <th>No</th>
+                <td>{{ ++$i }}</td>
 
-     <th>Nome</th>
+                <td>{{ $role->name }}</td>
 
-     <th width="280px">Ações</th>
+                <td>
 
-  </tr>
+                    <a class="btn btn-info" href="{{ route('roles.show', $role->id) }}">Detalhes</a>
 
-    @foreach ($roles as $key => $role)
+                    @can('role-edit')
 
-    <tr>
+                        <a class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}">Editar</a>
 
-        <td>{{ ++$i }}</td>
+                    @endcan
 
-        <td>{{ $role->name }}</td>
+                    @can('role-delete')
 
-        <td>
+                        {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
 
-            <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Detalhes</a>
+                        {!! Form::submit('Desativar', ['class' => 'btn btn-danger']) !!}
 
-            @can('role-edit')
+                        {!! Form::close() !!}
 
-                <a class="btn btn-primary" href="{{ route('roles.edit',$role->id) }}">Editar</a>
+                    @endcan
 
-            @endcan
+                </td>
 
-            @can('role-delete')
+            </tr>
 
-                {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
+        @endforeach
 
-                    {!! Form::submit('Desativar', ['class' => 'btn btn-danger']) !!}
-
-                {!! Form::close() !!}
-
-            @endcan
-
-        </td>
-
-    </tr>
-
-    @endforeach
-
-</table>
+    </table>
 
 
-{!! $roles->render() !!}
+    {!! $roles->render() !!}
 
 @endsection

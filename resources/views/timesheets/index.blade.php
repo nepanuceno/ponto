@@ -18,8 +18,9 @@
                     <div class="input-form">
                         <label class="label-control" for="month">Mês</label>
                         <select class="select2 form-control" name="month" id="month">
-                            @for ($i=1; $i<=12; $i++)
-                                <option value="{{ $i }}" {{ $month == $i ? 'selected':'' }}>{{ $i }}</option>
+                            @for ($i = 1; $i <= 12; $i++)
+                                <option value="{{ $i }}" {{ $month == $i ? 'selected' : '' }}>{{ $i }}
+                                </option>
                             @endfor
                         </select>
                     </div>
@@ -47,5 +48,7 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+        console.log('Hi!');
+    </script>
 @stop

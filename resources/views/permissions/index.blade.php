@@ -14,9 +14,24 @@
         </div>
     </div>
 
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
+    @if (session('success'))
+        <div class="alert alert-success alert-dismiss d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+                <use xlink:href="#check-circle-fill" />
+            </svg>
+            <div class="ml-2">
+                {{ session('success') }}
+            </div>
+        </div>
+    @endif
+    @if (session('danger'))
+        <div class="alert alert-danger alert-dismiss d-flex align-items-center" role="alert">
+            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                <use xlink:href="#exclamation-triangle-fill" />
+            </svg>
+            <div class="ml-2">
+                {{ session('danger') }}
+            </div>
         </div>
     @endif
 

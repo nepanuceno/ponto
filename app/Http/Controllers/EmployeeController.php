@@ -42,8 +42,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        $departaments = Departament::all();
-        $positions = Position::all();
+        $departaments = Departament::orderBy('name', 'ASC')->get();
+        $positions = Position::orderBy('name', 'ASC')->get();
 
         return view('employees.create', compact('departaments','positions'));
     }

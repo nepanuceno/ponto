@@ -12,6 +12,21 @@ class DepartamentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+        $this->middleware('permission:servidor-list|servidor-create|servidor-edit|servidor-delete', ['only' => ['index','store']]);
+        $this->middleware('permission:servidor-create', ['only' => ['create','store']]);
+        $this->middleware('permission:servidor-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:servidor-delete', ['only' => ['destroy']]);
+    }
+
+
+    /**
+     *
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $departaments = Departament::where('status', 1)->paginate(10);

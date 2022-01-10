@@ -8,7 +8,6 @@ use Spatie\Permission\Models\Permission;
 use DB;
 
 class RoleController extends Controller
-
 {
     /**
      * Display a listing of the resource.

@@ -28,29 +28,37 @@
         </div>
     @endif
 
-    <a class="btn btn-primary mb-4" href="{{ route('positions.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+    @can('servidor-create')
+        <a class="btn btn-primary mb-4" href="{{ route('positions.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+    @endcan
+
     @if (count($positions) > 0)
         <div class="card">
             <div class="card-body table-responsive p-0">
                 <table class="table table-striped table-valign-middle">
                     <thead>
                         <tr>
-                            <th colspan="2">Cargos</th>
+                            <th>Cargos</th>
+                            @can('servidor-edit')
+                                <th>Ações</th>
+                            @endcan
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($positions as $position)
                             <tr>
                                 <td>{{ $position->name }}</td>
-                                <td>
-                                    {{-- <form action="{{ url('positions/'. $position->id ) }}" method="POST">
+                                @can('servidor-edit')
+                                    <td>
+                                        {{-- <form action="{{ url('positions/'. $position->id ) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
                                     <button class="btn btn-app float-right disable"><i class="fas fa-trash"></i> Excluir</button>
                                 </form> --}}
-                                    <a class="btn btn-app float-right" href="positions/{{ $position->id }}/edit">
-                                        <i class="fas fa-edit"></i> Editar</a>
-                                </td>
+                                        <a class="btn btn-app float-right" href="positions/{{ $position->id }}/edit">
+                                            <i class="fas fa-edit"></i> Editar</a>
+                                    </td>
+                                @endcan
                             </tr>
                         @endforeach
                     </tbody>

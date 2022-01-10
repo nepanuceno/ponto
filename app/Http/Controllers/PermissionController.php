@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Permission;
+use Spatie\Permission\Models\Permission;
 use Illuminate\Http\Request;
 use DB;
 
@@ -28,9 +28,9 @@ class PermissionController extends Controller
      */
     public function index(Request $request)
     {
-        $permissions = Permission::orderBy('id','DESC')->paginate(10);
+        $permissions = Permission::orderBy('id','DESC')->paginate(5);
         return view('permissions.index',compact('permissions'))
-            ->with('i', ($request->input('page', 1) - 1) * 10);
+            ->with('i', ($request->input('page', 1) - 1) * 5);
 
         return view('permissions.index', compact('permissions'));
     }

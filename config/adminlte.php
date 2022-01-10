@@ -65,8 +65,8 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header' => true,
+    'usermenu_header_class' => 'bg-secondary',
     'usermenu_image' => false,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
@@ -265,26 +265,35 @@ return [
             'can' => 'imprimir-livro-ponto',
             'icon_color' => 'success'
         ],
-        ['header' => 'CADASTROS', 'classes'=>'success'],
+        [
+            'header' => 'CADASTROS',
+            'classes'=>'success',
+            'classes'  => 'text-yellow text-bold',
+            'can' => ['servidor-list', 'gerente'],
+        ],
         [
             'text' => 'Departamentos',
             'icon' => 'fas fa-sitemap',
             'url' => 'departaments',
-            'can' => 'servidor-list',
+            'can' => ['servidor-list', 'gerente'],
         ],
         [
             'text' => 'Cargos',
             'url' => 'positions',
             'icon' => 'fas fa-address-card',
-            'can' => 'servidor-list',
+            'can' => ['servidor-list', 'gerente'],
         ],
         [
             'text' => 'Servidores',
             'url' => 'employees',
             'icon' => 'fas fa-users',
-            'can' => 'servidor-list',
+            'can' => ['servidor-list', 'gerente'],
         ],
-        ['header' => 'GERENCIAMENTO', 'can' => 'permissao-list|usuario-list|perfil-list'],
+        [
+            'header' => 'ADMINISTRAÇÃO',
+            'can' => ['permissao-list', 'usuario-list', 'perfil-list'],
+            'classes'  => 'text-yellow text-bold',
+        ],
         [
             'text' => 'Usuários',
             'icon' => 'fas fa-users-cog',

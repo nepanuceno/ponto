@@ -3,11 +3,13 @@
 @section('title', 'Dashboard')
 
 @section('content_header')
-    <h1>Dashboard</h1>
+    <h1>Gerador de Livro de Ponto</h1>
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
+    <p>Bem vindo ao Sistema de geração de Livro de Pontos.</p>
+    <p>Gere as folhas de frequência dos colaboradores com rapidez e de forma dinâmica.
+    </p>
 @stop
 
 @section('css')

@@ -46,7 +46,8 @@ return [
     */
 
     'logo' => '<b>Livro de </b>PONTOS',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    // 'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => asset('storage/logo/logo-ponto.png'),
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',

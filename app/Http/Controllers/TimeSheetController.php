@@ -31,8 +31,9 @@ class TimeSheetController extends Controller
         $years = range($currentYear, $endYear);
 
         $departaments = Departament::where('status', 1)->get();
+        $employees = Employee::where('active', 1)->get();
 
-        return view('timesheets.index', compact('years', 'month', 'departaments'));
+        return view('timesheets.index', compact('years', 'month', 'departaments', 'employees'));
     }
 
 
@@ -51,9 +52,16 @@ class TimeSheetController extends Controller
             $arr_aux = array('day'=> $key+1, 'week_day'=> $this->translateDay($dt->isoFormat('d')));
             $arr_days[] = $arr_aux;
         }
-        $employees = Employee::where('active', 1)
-        ->where('departament_id', $request->departament)
-        ->get();
+
+
+        $employees = Employee::where('active', 1);
+        if ($request->departament != 0)
+        $employees->where('departament_id', $request->departament);
+        elseif ($request->employee != 0) {
+            $employees->where('id', $request->employee);
+        }
+        $employees = $employees->get();
+
         $pdf = PDF::loadView('timesheets.pdf', compact('employees', 'arr_days', 'month', 'year'))
             ->setOptions(
                 [

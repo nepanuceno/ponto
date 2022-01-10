@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Departament;
 use Carbon\Carbon;
 use App\Models\Employee;
 use Illuminate\Http\Request;
@@ -29,7 +30,9 @@ class TimeSheetController extends Controller
 
         $years = range($currentYear, $endYear);
 
-        return view('timesheets.index', compact('years', 'month'));
+        $departaments = Departament::where('status', 1)->get();
+
+        return view('timesheets.index', compact('years', 'month', 'departaments'));
     }
 
 
@@ -48,7 +51,9 @@ class TimeSheetController extends Controller
             $arr_aux = array('day'=> $key+1, 'week_day'=> $this->translateDay($dt->isoFormat('d')));
             $arr_days[] = $arr_aux;
         }
-        $employees = Employee::where('active', 1)->get();
+        $employees = Employee::where('active', 1)
+        ->where('departament_id', $request->departament)
+        ->get();
         $pdf = PDF::loadView('timesheets.pdf', compact('employees', 'arr_days', 'month', 'year'))
             ->setOptions(
                 [

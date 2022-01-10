@@ -29,15 +29,15 @@
                     <thead>
                         <tr>
                             <th>Servidores</th>
-                            @can('servidor-edit|servidor-delete')
-                                <th>Ações</th>
+                            @can(['servidor-edit', 'servidor-delete'])
+                                <th class="text-center">Ações</th>
                             @endcan
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($employees as $employee)
                             <tr>
-                                <td style="width: 80%">{{ $employee->name }}</td>
+                                <td style="width: 78%">{{ $employee->name }}</td>
                                 <td>
                                     @can('servidor-edit')
                                         <form action="{{ url('employees/' . $employee->id) }}" method="POST">

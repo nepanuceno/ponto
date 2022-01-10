@@ -27,17 +27,17 @@
                 <table class="table table-striped table-valign-middle">
                     <thead>
                         <tr>
-                            <th colspan="2">Departamento</th>
-                            @can('servidor-edit|servidor-delete')
-                                <th colspan="2">Departamento</th>
+                            <th>Departamentos</th>
+                            @can(['servidor-edit', 'servidor-delete'])
+                                <th class="text-center">Departamento</th>
                             @endcan
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($departaments as $departament)
                             <tr>
-                                <td>{{ $departament->name }}</td>
-                                @can('servidor-edit|servidor-delete')
+                                <td style="width: 78%">{{ $departament->name }}</td>
+                                @can(['servidor-edit', 'servidor-delete'])
 
                                     <td>
                                         <form action="{{ url('departaments/' . $departament->id) }}" method="POST">

@@ -40,14 +40,14 @@
                         <tr>
                             <th>Cargos</th>
                             @can('servidor-edit')
-                                <th>Ações</th>
+                                <th class="text-center">Ações</th>
                             @endcan
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($positions as $position)
                             <tr>
-                                <td>{{ $position->name }}</td>
+                                <td style="width: 90%">{{ $position->name }}</td>
                                 @can('servidor-edit')
                                     <td>
                                         {{-- <form action="{{ url('positions/'. $position->id ) }}" method="POST">

@@ -259,7 +259,7 @@ return [
             'icon' => 'fas fa-archway',
         ],
         [
-            'text' => 'Folhas de Ponto',
+            'text' => 'Livro de Pontos',
             'url' => 'time_sheets',
             'icon' => 'fas fa-calendar-alt',
             'can' => 'imprimir-livro-ponto',

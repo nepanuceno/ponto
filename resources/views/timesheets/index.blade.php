@@ -1,12 +1,13 @@
 @extends('adminlte::page')
 
-@section('title', 'Livro de Pontos')
+@section('title', 'Gerar Livro de Pontos')
 
 @section('content_header')
     <h1>Livro de Pontos</h1>
 @stop
 
 @section('content')
+    @if (count($employees) > 0)
     <div class="card">
         <div class="card-header">
             Gerar livro referente a:
@@ -65,6 +66,11 @@
             </div>
         </form>
     </div>
+    @else
+        <div class="alert alert-info">
+            Ainda não há servidores cadastrados no sistema.
+        </div>
+    @endif
 @stop
 
 @section('css')

@@ -12,6 +12,9 @@
 ```chmod -R 777 storage```
 ```chmod -R 777 /var/www/ponto/vendor/dompdf/dompdf/lib/fonts```
 
+Consulta a documentação do AdminLTE em casa de dúvidas ou dificuldade:
+https://github.com/jeroennoten/Laravel-AdminLTE/wiki
+
 ### Credencial padrão para o primeiro acesso
 * Usuário: admin@gmail.com
 * Senha: 123456

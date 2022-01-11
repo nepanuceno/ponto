@@ -1,4 +1,5 @@
 @extends('adminlte::page')
+@section('title', 'Permissões')
 
 @section('content')
     <div class="row">

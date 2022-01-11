@@ -42,4 +42,34 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function adminlte_image()
+    {
+        return 'https://www.seekpng.com/png/full/428-4287240_no-avatar-user-circle-icon-png.png';
+    }
+
+    public function adminlte_desc()
+    {
+        // return 'That\'s a nice guy';
+        $user = self::find(auth()->id());
+        $label = "";
+
+        if (!empty($user->getRoleNames()))
+            foreach ($user->getRoleNames() as $key=>$v) {
+                if (
+                    ($key < count($user->getRoleNames())-1)
+                    &&
+                    (count($user->getRoleNames())>1)
+                ){
+                    $v.=" | ";
+                }
+                $label .= $v;
+            }
+        return $label;
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'users/'.auth()->id();
+    }
 }

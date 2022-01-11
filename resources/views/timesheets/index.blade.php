@@ -67,9 +67,11 @@
         </form>
     </div>
     @else
-        <div class="alert alert-info">
-            Ainda não há servidores cadastrados no sistema.
-        </div>
+        <div class="callout callout-info">
+            <h5>Ainda não há servidores cadastrados no sistema!</h5>
+
+            <p>Para poder gerar uma folha de pontos, é necessário ter pelo menos um Servidor cadastrado no sistema.</p>
+          </div>
     @endif
 @stop
 

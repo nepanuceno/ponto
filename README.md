@@ -8,6 +8,9 @@
 ```php artisan db:seed --class=PermissionTableSeeder```
 ```php artisan db:seed --class=CreateAdminUserSeeder```
 ```php artisan storage:link```
+```php artisan storage:link```
+```chmod -R 777 storage```
+```chmod -R 777 /var/www/ponto/vendor/dompdf/dompdf/lib/fonts```
 
 ### Credencial padrão para o primeiro acesso
 * Usuário: admin@gmail.com

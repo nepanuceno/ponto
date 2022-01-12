@@ -2,7 +2,7 @@
 @section('title', 'Permissões')
 
 @section('content')
-    <div class="row">
+    <div class="row mb-2">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
                 <h2>Gerenciamento de Permissões</h2>
@@ -36,31 +36,45 @@
         </div>
     @endif
 
-    <table class="table table-bordered">
-        <tr>
-            <th>No</th>
-            <th>Nome</th>
-            <th width="280px">Ações</th>
-        </tr>
-
-        @foreach ($permissions as $key => $permission)
+    <table class="table table-bordered table-sm table-striped table-hover table-valign-middle">
+        <thead class="thead-dark ">
             <tr>
-                <td>{{ ++$i }}</td>
-                <td>{{ $permission->name }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('permissions.show', $permission->id) }}">Detalhes</a>
-                    @can('permissao-edit')
-                        <a class="btn btn-primary" href="{{ route('permissions.edit', $permission->id) }}">Editar</a>
-                    @endcan
-
-                    @can('permissao-delete')
-                        {!! Form::open(['method' => 'DELETE', 'route' => ['permissions.destroy', $permission->id], 'style' => 'display:inline']) !!}
-                        {!! Form::submit('Desativar', ['class' => 'btn btn-danger']) !!}
-                        {!! Form::close() !!}
-                    @endcan
-                </td>
+                <th class="text-center" width="5%">No</th>
+                <th>Nome</th>
+                <th class="text-center" width="10%">Ações</th>
             </tr>
-        @endforeach
+        </thead>
+        <tbody>
+            @foreach ($permissions as $key => $permission)
+                <tr>
+                    <td class="text-center font-weight-bold"> {{ ++$i }}</td>
+                    <td>{{ $permission->name }}</td>
+                    <td>
+                        <div class="btn-group float-right">
+                            <button type="button" class="btn btn-default">Ações</button>
+                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                aria-expanded="false">
+                                <span class="sr-only">Toggle Dropdown</span>
+                            </button>
+                            <div class="dropdown-menu" role="menu" style="">
+                                <a class="dropdown-item" href="{{ route('permissions.show', $permission->id) }}"><i
+                                        class="fas fa-info mr-2"></i>Detalhes</a>
+                                @can('permissao-edit')
+                                    <a class="dropdown-item" href="{{ route('permissions.edit', $permission->id) }}"><i
+                                            class="fas fa-edit mr-2"></i>Editar</a>
+                                @endcan
+
+                                @can('permissao-delete')
+                                    {!! Form::open(['method' => 'DELETE', 'route' => ['permissions.destroy', $permission->id], 'style' => 'display:inline']) !!}
+                                    {!! Form::button('<i class="fas fa-trash mr-2"></i>Excluir', ['type' => 'submit', 'class' => 'dropdown-item']) !!}
+                                    {!! Form::close() !!}
+                                @endcan
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
     </table>
 
     {!! $permissions->render() !!}

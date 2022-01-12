@@ -19,14 +19,23 @@
     @endif
 
     @can('servidor-create')
-        <a class="btn btn-primary mb-4" href="{{ route('employees.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+        @if (session('active') == 1)
+            <a class="btn btn-primary mb-4" href="{{ route('employees.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+        @endif
     @endcan
 
+    <a class="float-right btn btn-secondary" href="{{ url('set_active') }}">
+        @if (session('active') == 0)
+            <i class="fas fa-filter mr-2"></i>Mostrar Ativos
+        @else
+            <i class="fas fa-filter mr-2"></i>Mostrar Inativos
+        @endif
+    </a>
     @if (count($employees) > 0)
         <div class="card">
             <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                    <thead>
+                <table class="table table-bordered table-sm table-striped table-hover table-valign-middle">
+                    <thead class="thead-dark ">
                         <tr>
                             <th>Servidores</th>
                             @can(['servidor-edit', 'servidor-delete'])
@@ -39,19 +48,35 @@
                             <tr>
                                 <td style="width: 78%">{{ $employee->name }}</td>
                                 <td>
-                                    @can('servidor-edit')
-                                        <form action="{{ url('employees/' . $employee->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- <input type="hidden" name="departament_id" value="{{ $employee->id }}"/> --}}
-                                            <button class="btn btn-app float-right disable"><i class="fas fa-trash"></i>
-                                                Excluir</button>
-                                        </form>
-                                    @endcan
-                                    @can('servidor-edit')
-                                        <a class="btn btn-app float-right" href="employees/{{ $employee->id }}/edit">
-                                            <i class="fas fa-edit"></i> Editar</a>
-                                    @endcan
+                                    <div class="btn-group float-right">
+                                        <button type="button" class="btn btn-default">Ações</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                            aria-expanded="false">
+                                            <span class="sr-only">Toggle Dropdown</span>
+                                        </button>
+                                        <div class="dropdown-menu" role="menu" style="">
+                                            @can('servidor-edit')
+                                                <form action="{{ url('employees/' . $employee->id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    {{-- <input type="hidden" name="departament_id" value="{{ $employee->id }}"/> --}}
+                                                    <button class="dropdown-item disable"
+                                                        data-active="{{ $employee->active == 1 ? 'Desativar' : 'Reativar' }}"><i
+                                                            class="fas fa-trash"></i>
+                                                        {{ $employee->active == 1 ? 'Desativar' : 'Reativar' }}
+                                                    </button>
+                                                </form>
+                                            @endcan
+                                            @can('servidor-edit')
+                                                <a class="dropdown-item" href="employees/{{ $employee->id }}/edit">
+                                                    <i class="fas fa-edit"></i> Editar</a>
+                                            @endcan
+                                            @can('servidor-list')
+                                                <a class="dropdown-item" href="{{ route('employees.show', $employee->id) }}">
+                                                    <i class="fas fa-info"></i> Informações</a>
+                                            @endcan
+                                        </div>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
@@ -61,7 +86,11 @@
             {{ $employees->links() }}
         </div>
     @else
-        <div class="alert alert-info">Não existem Servidores ativos ou cadastrados</div>
+        @if (session('active') == 1)
+            <div class="alert alert-info">Não existem Servidores ativos ou cadastrados!</div>
+        @else
+            <div class="alert alert-info">Não existem Servidores desativados! <a href="{{ url('set_active') }}">Exibir Ativos</a></div>
+        @endif
     @endif
 @stop
 
@@ -70,17 +99,18 @@
         var a = document.querySelectorAll('.disable')
         a.forEach(element => {
             element.addEventListener('click', function disable(e) {
+                let activeMsg = this.getAttribute('data-active')
                 console.log(this.parentElement)
                 e.preventDefault()
 
                 Swal.fire({
-                    title: 'Confirma?',
+                    title: 'Deseja ' + activeMsg + ' este Servidor?',
                     text: "Esta ação poderá ser revertida",
                     type: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
                     cancelButtonColor: '#d33',
-                    confirmButtonText: 'Sim, desativar!'
+                    confirmButtonText: 'Sim, ' + activeMsg + '!'
                 }).then((result) => {
                     if (result.value) {
                         this.parentElement.submit()
@@ -91,4 +121,4 @@
             })
         });
     </script>
-@stop
+@endsection

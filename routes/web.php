@@ -41,4 +41,5 @@ Route::middleware(['auth'])->group(function () {
     Route::post('make-time-sheets', [TimeSheetController::class, 'makeTimeSheet'])->name('maketimesheets');
     Route::get('/employee/pdf', [TimeSheetController::class, 'createPDF']);
 
+    Route::get('set_active',[EmployeeController::class, 'changeActiveSearchEmployees']);
 });

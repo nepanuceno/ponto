@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Departament;
 use App\Models\Employee;
 use App\Models\Position;
+use App\Models\Departament;
 use Illuminate\Http\Request;
+use Facade\FlareClient\Http\Response;
+use Illuminate\Contracts\Session\Session;
 
 class EmployeeController extends Controller
 {
@@ -30,7 +32,15 @@ class EmployeeController extends Controller
      */
     public function index()
     {
-        $employees  = Employee::where('active', 1)->paginate(20);
+        if (session()->has('active') && session('active')==0) {
+            $employees  = Employee::where('active', 0)->paginate(20);
+            session()->forget('active');
+            session(['active' => 0]);
+        } else {
+            $employees  = Employee::where('active', 1) ->paginate(20);
+            session()->forget('active');
+            session(['active' => 1]);
+        }
 
         return view('employees.index', compact('employees'));
     }
@@ -40,7 +50,7 @@ class EmployeeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Response $response)
     {
         $departaments = Departament::orderBy('name', 'ASC')->get();
         $positions = Position::orderBy('name', 'ASC')->get();
@@ -81,7 +91,12 @@ class EmployeeController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $employee = Employee::where('id', $id)->first();
+            return view('employees.show', compact('employee'));
+        } catch (\Throwable $th) {
+            return redirect()->route('employees.index')->with('danger','Erro ao consultar Servidor!'.$th);
+        }
     }
 
     /**
@@ -136,10 +151,12 @@ class EmployeeController extends Controller
         try {
             $employee = Employee::find($id);
 
-            if ($employee->active) {
+            if ($employee->active == 1) {
                 $employee->active = 0;
-                $employee->save();
+            } else {
+                $employee->active = 1;
             }
+            $employee->save();
 
             return redirect()->route('employees.index')->with('success','Servidor desativado com sucesso!');
         } catch (\Throwable $th) {
@@ -147,5 +164,20 @@ class EmployeeController extends Controller
             return redirect()->route('employees.index')->with('danger','Erro ao desativar Servidor!'.PHP_EOL.$th->getMessage());
 
         }
+    }
+
+    public function changeActiveSearchEmployees()
+    {
+        //Se a sessao nao existe ou se ela existe e é igual a 1, passa pra 0;
+        $session = session('active');
+        session()->forget('active');
+
+        if ($session==1) {
+            session(['active' => 0]);
+        } else {
+            session(['active' => 1]);
+        }
+
+        return redirect()->route('employees.index');
     }
 }

@@ -35,8 +35,8 @@
     @if (count($positions) > 0)
         <div class="card">
             <div class="card-body table-responsive p-0">
-                <table class="table table-striped table-valign-middle">
-                    <thead>
+                <table class="table table-bordered table-sm table-striped table-hover table-valign-middle">
+                    <thead class="thead-dark ">
                         <tr>
                             <th>Cargos</th>
                             @can('servidor-edit')

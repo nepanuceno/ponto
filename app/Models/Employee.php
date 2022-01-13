@@ -18,4 +18,9 @@ class Employee extends Model
     public function getPosition() {
         return $this->belongsTo(Position::class, 'position_id');
     }
+
+    public function getImage()
+    {
+        return asset('images/avatar.png');
+    }
 }

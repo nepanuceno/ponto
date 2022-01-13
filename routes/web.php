@@ -33,9 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
 
-    Route::resource('departaments',DepartamentController::class);
-    Route::resource('positions',PositionController::class);
-    Route::resource('employees',EmployeeController::class);
+    Route::resource('departaments', DepartamentController::class);
+    Route::resource('positions', PositionController::class);
+    Route::resource('employees', EmployeeController::class);
 
     Route::get('time_sheets', [TimeSheetController::class, 'index'])->name('timesheets');
     Route::post('make-time-sheets', [TimeSheetController::class, 'makeTimeSheet'])->name('maketimesheets');

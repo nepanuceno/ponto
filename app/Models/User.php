@@ -45,7 +45,7 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        return 'https://www.seekpng.com/png/full/428-4287240_no-avatar-user-circle-icon-png.png';
+        return asset('images/avatar.png');
     }
 
     public function adminlte_desc()

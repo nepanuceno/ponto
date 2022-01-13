@@ -6,8 +6,7 @@ use App\Models\Employee;
 use App\Models\Position;
 use App\Models\Departament;
 use Illuminate\Http\Request;
-use Facade\FlareClient\Http\Response;
-use Illuminate\Contracts\Session\Session;
+use Illuminate\Http\Response;
 
 class EmployeeController extends Controller
 {
@@ -71,6 +70,8 @@ class EmployeeController extends Controller
 
             $employee->name = $request->employee;
             $employee->matriculation = $request->matriculation;
+            $employee->telephone = $request->telephone;
+            $employee->email = $request->email;
             $employee->departament_id = $request->departament;
             $employee->position_id = $request->position;
 
@@ -128,6 +129,8 @@ class EmployeeController extends Controller
 
             $employee->name = $request->employee;
             $employee->matriculation = $request->matriculation;
+            $employee->telephone = $request->telephone;
+            $employee->email = $request->email;
             $employee->departament_id = $request->departament;
             $employee->position_id = $request->position;
 

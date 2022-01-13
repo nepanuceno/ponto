@@ -13,7 +13,7 @@
             <div class="card-body box-profile">
                 <div class="text-center">
                     <img class="profile-user-img img-fluid img-circle"
-                        src="https://www.seekpng.com/png/full/428-4287240_no-avatar-user-circle-icon-png.png"
+                        src="{{ $employee->getImage() }}"
                         alt="User profile picture">
                 </div>
 

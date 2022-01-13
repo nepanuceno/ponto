@@ -38,6 +38,8 @@
                     <thead class="thead-dark ">
                         <tr>
                             <th>Servidores</th>
+                            <th>Telefone</th>
+                            <th>Email</th>
                             @can(['servidor-edit', 'servidor-delete'])
                                 <th class="text-center">Ações</th>
                             @endcan
@@ -46,8 +48,10 @@
                     <tbody>
                         @foreach ($employees as $employee)
                             <tr>
-                                <td style="width: 78%">{{ $employee->name }}</td>
-                                <td>
+                                <td style="width: 40%">{{ $employee->name }}</td>
+                                <td style="width: 20%">{{ $employee->telephone }}</td>
+                                <td style="width: 30%">{{ $employee->email }}</td>
+                                <td style="width: 10%">
                                     <div class="btn-group float-right">
                                         <button type="button" class="btn btn-default">Ações</button>
                                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"

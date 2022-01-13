@@ -34,6 +34,20 @@
 
                 <div class="form-group">
                     <div class="input-form">
+                        <label class="form-label" for="employee">E-Mail</label>
+                        <input class="form-control" name="email" id="email" value="{{ isset($employee) ? $employee->email : old('email') }}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-form">
+                        <label class="form-label" for="employee">Telefone</label>
+                        <input class="form-control" name="telephone" id="telephone" value="{{ isset($employee) ? $employee->telephone : old('telephone') }}" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-form">
                         <label class="form-label" for="matriculation">Matrícula</label>
                         <input class="form-control" name="matriculation" id="matriculation" value="{{ isset($employee) ? $employee->matriculation : old('matriculation') }}" />
                     </div>

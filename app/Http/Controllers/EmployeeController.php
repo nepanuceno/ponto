@@ -32,14 +32,14 @@ class EmployeeController extends Controller
     public function index()
     {
         if (session()->has('active') && session('active')==0) {
-            $employees  = Employee::where('active', 0)->paginate(20);
-            session()->forget('active');
-            session(['active' => 0]);
+           $tag = 0;
         } else {
-            $employees  = Employee::where('active', 1) ->paginate(20);
-            session()->forget('active');
-            session(['active' => 1]);
+            $tag = 1;
         }
+
+        $employees  = Employee::where('active', $tag) ->paginate(20);
+        session()->forget('active');
+        session(['active' => $tag]);
 
         return view('employees.index', compact('employees'));
     }

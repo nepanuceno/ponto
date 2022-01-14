@@ -13,7 +13,7 @@ class AddEmailAndTelephoneToEmployees extends Migration
      */
     public function up()
     {
-        Schema::table('Employees', function (Blueprint $table) {
+        Schema::table('employees', function (Blueprint $table) {
             $table->string('email')->nullable()->unique();
             $table->string('telephone')->nullable()->unique();
         });
@@ -26,7 +26,7 @@ class AddEmailAndTelephoneToEmployees extends Migration
      */
     public function down()
     {
-        Schema::table('Employees', function (Blueprint $table) {
+        Schema::table('employees', function (Blueprint $table) {
             $table->dropColumn('email');
             $table->dropColumn('telephone');
         });

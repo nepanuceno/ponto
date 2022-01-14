@@ -36,8 +36,8 @@
 
                 <div class="form-group">
                     <div class="input-form">
-                        <label class="form-label" for="employee">Servidor</label>
-                        <input class="form-control" name="name" id="employee"
+                        <label class="form-label" for="name">Servidor</label>
+                        <input class="form-control" name="name" id="name"
                             value="{{ isset($employee) ? $employee->name : old('name') }}" />
                     </div>
                 </div>

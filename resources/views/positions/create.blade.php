@@ -28,7 +28,15 @@
             </div>
         </div>
     @endif
-
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="card card-info">
         <form action="{{ isset($position) ? url('positions/' . $position->id) : url('positions') }}" method="POST">
             <div class="card-body">

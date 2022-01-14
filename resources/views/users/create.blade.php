@@ -13,10 +13,8 @@
         </div>
     </div>
 
-
-    @if (count($errors) > 0)
+    @if ($errors->any())
         <div class="alert alert-danger">
-            <strong>Whoops!</strong> Houve algum problema com os dados.<br><br>
             <ul>
                 @foreach ($errors->all() as $error)
                     <li>{{ $error }}</li>

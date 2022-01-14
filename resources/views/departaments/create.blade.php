@@ -7,28 +7,39 @@
 @stop
 
 @section('content')
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
+    @if (session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
     @endif
-    @if(session('danger'))
-    <div class="alert alert-danger">
-        {{ session('danger') }}
-    </div>
+    @if (session('danger'))
+        <div class="alert alert-danger">
+            {{ session('danger') }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
     @endif
     <div class="card card-info">
-        <form action="{{ isset($departament) ? url('departaments/'.$departament->id) : url('departaments') }}" method="POST">
+        <form action="{{ isset($departament) ? url('departaments/' . $departament->id) : url('departaments') }}"
+            method="POST">
             <div class="card-body">
                 @csrf
-                @if(isset($departament))
-                        @method('PUT')
+                @if (isset($departament))
+                    @method('PUT')
                 @endif
 
                 <div class="form-group">
                     <div class="input-form">
                         <label class="form-label" for="departament">Departamento</label>
-                        <input class="form-control" name="departament" id="departament" value="{{ isset($departament) ? $departament->name : '' }}" />
+                        <input class="form-control" name="departament" id="departament"
+                            value="{{ isset($departament) ? $departament->name : '' }}" />
                     </div>
                 </div>
 
@@ -38,7 +49,9 @@
                         <select class="form-control select2" name="parent">
                             <option value="0">Nenhum</option>
                             @foreach ($departaments as $item)
-                                <option value="{{ $item->id }}" {{ isset($departament) ? ($departament->parent_id == $item->id ? 'selected=selected':''):'' }}>{{ $item->name }}</option>
+                                <option value="{{ $item->id }}"
+                                    {{ isset($departament) ? ($departament->parent_id == $item->id ? 'selected=selected' : '') : '' }}>
+                                    {{ $item->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -53,8 +66,8 @@
 @stop
 @section('js')
     <script>
-    $('.select2').select2({
-        placeholder: 'Select an option'
-    });
-  </script>
+        $('.select2').select2({
+            placeholder: 'Select an option'
+        });
+    </script>
 @stop

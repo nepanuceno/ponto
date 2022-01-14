@@ -65,10 +65,19 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|unique:employees|max:255',
+            'telephone' => 'required|unique:employees|max:20',
+            'email' => 'required|unique:employees|max:55',
+            'matriculation' => 'required|unique:employees|max:25',
+            'departament' => 'required',
+            'position' => 'required',
+        ]);
+
         try {
             $employee = new Employee();
 
-            $employee->name = $request->employee;
+            $employee->name = $request->name;
             $employee->matriculation = $request->matriculation;
             $employee->telephone = $request->telephone;
             $employee->email = $request->email;
@@ -127,7 +136,7 @@ class EmployeeController extends Controller
         try {
             $employee = Employee::find($id);
 
-            $employee->name = $request->employee;
+            $employee->name = $request->name;
             $employee->matriculation = $request->matriculation;
             $employee->telephone = $request->telephone;
             $employee->email = $request->email;

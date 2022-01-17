@@ -17,15 +17,7 @@
             {{ session('danger') }}
         </div>
     @endif
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+
     <div class="card card-info">
         <form action="{{ isset($employee) ? url('employees/' . $employee->id) : url('employees') }}" method="POST">
             <div class="card-body">
@@ -37,32 +29,45 @@
                 <div class="form-group">
                     <div class="input-form">
                         <label class="form-label" for="name">Servidor</label>
-                        <input class="form-control" name="name" id="name"
+                        <input class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name"
                             value="{{ isset($employee) ? $employee->name : old('name') }}" />
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
+
                 </div>
 
                 <div class="form-group">
                     <div class="input-form">
                         <label class="form-label" for="email">E-Mail</label>
-                        <input class="form-control" name="email" id="email"
+                        <input class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" name="email" id="email"
                             value="{{ isset($employee) ? $employee->email : old('email') }}" />
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-form">
                         <label class="form-label" for="telephone">Telefone</label>
-                        <input class="form-control" name="telephone" id="telephone"
+                        <input class="form-control {{ $errors->has('telephone') ? 'is-invalid' : '' }}" name="telephone" id="telephone"
                             value="{{ isset($employee) ? $employee->telephone : old('telephone') }}" />
+                        @error('telephone')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="form-group">
                     <div class="input-form">
                         <label class="form-label" for="matriculation">Matrícula</label>
-                        <input class="form-control" name="matriculation" id="matriculation"
+                        <input class="form-control {{ $errors->has('matriculation') ? 'is-invalid' : '' }}" name="matriculation" id="matriculation"
                             value="{{ isset($employee) ? $employee->matriculation : old('matriculation') }}" />
+                        @error('matriculation')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                 </div>
 
@@ -101,8 +106,29 @@
 @stop
 @section('js')
     <script>
-        $('.select2').select2({
-            placeholder: 'Select an option'
+        $(document).ready(function() {
+            $('.select2').select2({
+                placeholder: 'Select an option'
+            });
+            $('#telephone').inputmask({
+                "mask": "(99)9 9999-9999"
+            });
+
+            //email mask
+            $('#email').inputmask({
+                mask: "*{1,20}[.*{1,20}][.*{1,20}][.*{1,20}]@*{1,20}[.*{2,6}][.*{1,2}]",
+                greedy: false,
+                onBeforePaste: function(pastedValue, opts) {
+                    pastedValue = pastedValue.toLowerCase();
+                    return pastedValue.replace("mailto:", "");
+                },
+                definitions: {
+                    '*': {
+                        validator: "[0-9A-Za-z!#$%&'*+/=?^_`{|}~\-]",
+                        casing: "lower"
+                    }
+                }
+            });
         });
     </script>
 @stop

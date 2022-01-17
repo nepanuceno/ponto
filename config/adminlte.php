@@ -435,6 +435,21 @@ return [
                 ],
             ],
         ],
+        'InputMask' => [
+            'active' => true,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/inputmask/inputmask.min.js',
+                ],
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/inputmask/jquery.inputmask.min.js',
+                ],
+            ],
+        ],
         'Select2' => [
             'active' => true,
             'files' => [

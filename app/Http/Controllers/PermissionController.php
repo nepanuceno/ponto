@@ -54,7 +54,7 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:positions|max:255',
+            'name' => 'required|unique:permissions|max:255',
         ]);
 
         try {

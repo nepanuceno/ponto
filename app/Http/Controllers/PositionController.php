@@ -51,13 +51,13 @@ class PositionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'position' => 'required|unique:positions|max:255',
+            'name' => 'required|unique:positions|max:255',
         ]);
 
         try {
             //code...
             $position = new Position();
-            $position->name = $request->position;
+            $position->name = $request->name;
             $position->save();
             return redirect()->route('positions.index')->with('success', 'Cargo criado com sucesso!');
         } catch (\Throwable $th) {

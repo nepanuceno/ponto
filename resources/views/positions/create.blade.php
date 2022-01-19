@@ -47,8 +47,8 @@
 
                 <div class="form-group">
                     <div class="input-form">
-                        <label class="form-label" for="position">Cargo</label>
-                        <input class="form-control" name="position" id="position"
+                        <label class="form-label" for="name">Cargo</label>
+                        <input class="form-control" name="name" id="name"
                             value="{{ isset($position) ? $position->name : '' }}" />
                     </div>
                 </div>

@@ -37,8 +37,8 @@
 
                 <div class="form-group">
                     <div class="input-form">
-                        <label class="form-label" for="departament">Departamento</label>
-                        <input class="form-control" name="departament" id="departament"
+                        <label class="form-label" for="name">Departamento</label>
+                        <input class="form-control" name="name" id="name"
                             value="{{ isset($departament) ? $departament->name : '' }}" />
                     </div>
                 </div>

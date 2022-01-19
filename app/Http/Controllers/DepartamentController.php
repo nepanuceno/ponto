@@ -53,12 +53,12 @@ class DepartamentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'departament' => 'required|unique:departament|max:255',
+            'name' => 'required|unique:departament|max:255',
         ]);
 
         $departament = new Departament();
 
-        $departament->name = $request->departament;
+        $departament->name = $request->name;
         $departament->parent_id = $request->parent;
         $departament->save();
 

@@ -53,6 +53,10 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
+        $validated = $request->validate([
+            'name' => 'required|unique:positions|max:255',
+        ]);
+
         try {
             Permission::create(['name' => $request->name]);
             return redirect()->route('permissions.index')->with('success', "Permissão Cadastrada com Sucesso!");

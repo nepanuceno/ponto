@@ -301,12 +301,12 @@ return [
             'url' => 'users',
             'can' => 'usuario-list'
         ],
-        [
-            'text' => 'Permissões',
-            'icon' => 'fas fa-user-lock',
-            'url' => 'permissions',
-            'can' => 'permissao-list'
-        ],
+        // [
+        //     'text' => 'Permissões',
+        //     'icon' => 'fas fa-user-lock',
+        //     'url' => 'permissions',
+        //     'can' => 'permissao-list'
+        // ],
         [
             'text' => 'Perfis',
             'icon' => 'fas fa-user-shield',

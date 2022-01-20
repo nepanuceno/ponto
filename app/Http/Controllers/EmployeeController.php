@@ -86,6 +86,10 @@ class EmployeeController extends Controller
 
             $employee->save();
 
+            activity()
+            ->withProperties(['new_employee' => $employee])
+            ->log('Criou um novo Servidor');
+
             return redirect()->route('employees.index')->with('success','Servidor cadastrado com sucesso!');
         } catch (\Throwable $th) {
             //throw $th;
@@ -145,6 +149,10 @@ class EmployeeController extends Controller
 
             $employee->save();
 
+            activity()
+                ->withProperties(['update_employee' => $employee])
+                ->log('Alterou o Servidor '. $employee->name);
+
             return redirect()->route('employees.index')->with('success','Servidor atualizado com sucesso!');
         } catch (\Throwable $th) {
             //throw $th;
@@ -165,10 +173,17 @@ class EmployeeController extends Controller
 
             if ($employee->active == 1) {
                 $employee->active = 0;
+                $str_active = 'Desativou';
+
             } else {
                 $employee->active = 1;
+                $str_active = 'Ativou';
             }
             $employee->save();
+
+            activity()
+                ->withProperties(['active_employee' => $employee])
+                ->log($str_active.' o Servidor '. $employee->name);
 
             return redirect()->route('employees.index')->with('success','Servidor desativado com sucesso!');
         } catch (\Throwable $th) {

@@ -70,9 +70,16 @@ class TimeSheetController extends Controller
                     'isRemoteEnabled' => true
                 ]
             );
-        return $pdf->download('livroPonto.pdf');
+
+        $pdf_generated = $pdf->download('livroPonto.pdf');
+
+        activity()
+            ->withProperties(['time-sheet' => $employees])
+            ->log('Gerou um livro de pontos em '. date('d/m/Y'));
+
+        return $pdf_generated;
         //View::share('book_employees', [$employees, $arr_days, $month, $year]);
-        return view('timesheets.maketimesheets', compact('employees', 'arr_days', 'month', 'year'));
+        //return view('timesheets.maketimesheets', compact('employees', 'arr_days', 'month', 'year'));
     }
 
     // Generate PDF

@@ -62,6 +62,10 @@ class DepartamentController extends Controller
         $departament->parent_id = $request->parent;
         $departament->save();
 
+        activity()
+            ->withProperties(['new_departament' => $departament])
+            ->log('Criou o novo departamento '.$departament->name);
+
         return redirect()->route('departaments.index')->with('success','Cadastrado com sucesso!');
     }
 
@@ -104,9 +108,14 @@ class DepartamentController extends Controller
         ]);
 
         $departament = Departament::find($id);
+        $old_name = $departament->name;
         $departament->name = $request->name;
         $departament->parent_id = $request->parent;
         $departament->save();
+
+        activity()
+            ->withProperties(['update_departament' => $departament])
+            ->log('Alerou o departamento '.$old_name . ' para '.$request->name);
 
         return redirect()->route('departaments.index')->with('success','Editado com sucesso');
     }
@@ -124,6 +133,11 @@ class DepartamentController extends Controller
             $departament->status = 0;
             $departament->save();
         }
+
+        activity()
+            ->withProperties(['active_departament' => $departament])
+            ->log('Desativou o Departamento '.$departament->name);
+
 
         return redirect()->route('departaments.index')->with('success','Departamento desativado com sucesso!');
     }

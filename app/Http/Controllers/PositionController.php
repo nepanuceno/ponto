@@ -59,6 +59,11 @@ class PositionController extends Controller
             $position = new Position();
             $position->name = $request->name;
             $position->save();
+
+            activity()
+            ->withProperties(['new_position' => $position])
+            ->log('Criou um novo Cargo');
+
             return redirect()->route('positions.index')->with('success', 'Cargo criado com sucesso!');
         } catch (\Throwable $th) {
             //throw $th;
@@ -101,8 +106,15 @@ class PositionController extends Controller
         try {
             $position = Position::find($id);
 
-            $position->name = $request->position;
+            $old_name = $position->name;
+            $new_name = $request->name;
+
+            $position->name = $request->name;
             $position->save();
+
+            activity()
+            ->withProperties(['update_position' => $position])
+            ->log('Alterou o nome do Cargo '.$old_name . ' para '.$new_name);
 
             return redirect()->route('positions.index')->with('success', 'Cargo atualizado!');
         } catch (\Throwable $th) {

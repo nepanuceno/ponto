@@ -69,6 +69,10 @@ class UserController extends Controller
         $user = User::create($input);
         $user->assignRole($request->input('roles'));
 
+        activity()
+            ->withProperties(['new_user' => $user])
+            ->log('Criou um novo usuário');
+
         return redirect()->route('users.index')
             ->with('success','User created successfully');
     }
@@ -129,6 +133,10 @@ class UserController extends Controller
 
         $user->assignRole($request->input('roles'));
 
+        activity()
+            ->withProperties(['edit_user' => $user])
+            ->log('Editou o usuário usuário '.$user->name);
+
         return redirect()->route('users.index')
             ->with('success','User updated successfully');
     }
@@ -141,7 +149,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        User::find($id)->delete();
+        $user = User::find($id);
+        $user_name = $user->name;
+        $user->delete();
+
+        activity()
+            ->log('Excluiu o usuário usuário '.$user_name);
         return redirect()->route('users.index')
             ->with('success','User deleted successfully');
     }

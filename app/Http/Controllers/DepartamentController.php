@@ -99,8 +99,12 @@ class DepartamentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validated = $request->validate([
+            'name' => 'required|unique:departaments|max:255',
+        ]);
+
         $departament = Departament::find($id);
-        $departament->name = $request->departament;
+        $departament->name = $request->name;
         $departament->parent_id = $request->parent;
         $departament->save();
 

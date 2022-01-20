@@ -47,7 +47,7 @@
                     <div class="input-form">
                         <label class="form-label" for="departament">Departamento pai</label>
                         <select class="form-control select2" name="parent">
-                            <option value="0">Nenhum</option>
+                            <option value="">Nenhum</option>
                             @foreach ($departaments as $item)
                                 <option value="{{ $item->id }}"
                                     {{ isset($departament) ? ($departament->parent_id == $item->id ? 'selected=selected' : '') : '' }}>
@@ -66,8 +66,10 @@
 @stop
 @section('js')
     <script>
-        $('.select2').select2({
-            placeholder: 'Select an option'
+        $('document').ready(function(){
+            $('.select2').select2({
+                placeholder: 'Nenhum'
+            });
         });
     </script>
 @stop

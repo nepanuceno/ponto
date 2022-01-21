@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LogsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TimeSheetController;
-use App\Http\Controllers\PermissionController;
+// use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\DepartamentController;
 
 /*
@@ -41,5 +42,12 @@ Route::middleware(['auth'])->group(function () {
     Route::post('make-time-sheets', [TimeSheetController::class, 'makeTimeSheet'])->name('maketimesheets');
     Route::get('/employee/pdf', [TimeSheetController::class, 'createPDF']);
 
+    Route::prefix('logs')->group(function () {
+        Route::get('/list', [LogsController::class, 'list'])->name('logs.list');
+        Route::get('/index', [LogsController::class, 'index'])->name('logs.index');
+
+    });
+
     Route::get('set_active',[EmployeeController::class, 'changeActiveSearchEmployees']);
+
 });

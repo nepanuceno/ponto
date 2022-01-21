@@ -31,6 +31,7 @@ class PermissionTableSeeder extends Seeder
             'usuario-create',
             'usuario-edit',
             'usuario-delete',
+            'logs-list',
             'imprimir-livro-ponto'
          ];
 

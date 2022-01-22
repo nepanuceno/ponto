@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/employee/pdf', [TimeSheetController::class, 'createPDF']);
 
     Route::prefix('logs')->group(function () {
-        Route::get('/list', [LogsController::class, 'list'])->name('logs.list');
+        Route::post('/list', [LogsController::class, 'list'])->name('logs.list');
         Route::get('/index', [LogsController::class, 'index'])->name('logs.index');
 
     });

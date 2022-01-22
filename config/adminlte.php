@@ -316,7 +316,7 @@ return [
         [
             'text' => 'Logs',
             'icon' => 'fas fa-eye',
-            'url' => 'logs',
+            'url' => 'logs/index',
             'can' => 'logs-list'
         ],
         // ['header' => 'account_settings'],

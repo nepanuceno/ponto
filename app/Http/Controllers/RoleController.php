@@ -127,7 +127,7 @@ class RoleController extends Controller
 
         activity()
             ->withProperties(['update_role' => $role])
-            ->log('Editou o perfil'. $role->name);
+            ->log('Editou o perfil <strong>'. $role->name.'</strong>');
 
         return redirect()->route('roles.index')
             ->with('success','Perfil atualizado com sucesso!');

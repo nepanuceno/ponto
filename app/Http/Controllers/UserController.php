@@ -135,7 +135,7 @@ class UserController extends Controller
 
         activity()
             ->withProperties(['edit_user' => $user])
-            ->log('Editou o usuário usuário '.$user->name);
+            ->log('Editou o usuário '.$user->name);
 
         return redirect()->route('users.index')
             ->with('success','User updated successfully');

@@ -25,6 +25,7 @@ class LogsController extends Controller
 
         $logs = Activity::where('causer_id', $request->user_id)
                 ->whereBetween('created_at', [$start_date, $end_date])
+                ->orderByDesc('created_at')
                 ->get();
 
         return view('logs.list', compact('logs'));

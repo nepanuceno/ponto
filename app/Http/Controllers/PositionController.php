@@ -62,7 +62,7 @@ class PositionController extends Controller
 
             activity()
             ->withProperties(['new_position' => $position])
-            ->log('Criou um novo Cargo');
+            ->log('Criou um novo Cargo - '.$position->name);
 
             return redirect()->route('positions.index')->with('success', 'Cargo criado com sucesso!');
         } catch (\Throwable $th) {

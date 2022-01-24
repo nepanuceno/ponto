@@ -71,10 +71,10 @@ class UserController extends Controller
 
         activity()
             ->withProperties(['new_user' => $user])
-            ->log('Criou um novo usuário');
+            ->log('Criou um novo usuário - '.$user->name);
 
         return redirect()->route('users.index')
-            ->with('success','User created successfully');
+            ->with('success','Usuário Criado com Sucesso!');
     }
 
     /**
@@ -135,7 +135,7 @@ class UserController extends Controller
 
         activity()
             ->withProperties(['edit_user' => $user])
-            ->log('Editou o usuário '.$user->name);
+            ->log('Editou o usuário - '.$user->name);
 
         return redirect()->route('users.index')
             ->with('success','User updated successfully');

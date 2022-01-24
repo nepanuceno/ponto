@@ -64,7 +64,7 @@ class DepartamentController extends Controller
 
         activity()
             ->withProperties(['new_departament' => $departament])
-            ->log('Criou o novo departamento '.$departament->name);
+            ->log('Criou o novo departamento - '.$departament->name);
 
         return redirect()->route('departaments.index')->with('success','Cadastrado com sucesso!');
     }
@@ -115,7 +115,7 @@ class DepartamentController extends Controller
 
         activity()
             ->withProperties(['update_departament' => $departament])
-            ->log('Alerou o departamento '.$old_name . ' para '.$request->name);
+            ->log('Alerou o departamento - '.$old_name . ' para '.$request->name);
 
         return redirect()->route('departaments.index')->with('success','Editado com sucesso');
     }

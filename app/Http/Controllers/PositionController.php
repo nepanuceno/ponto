@@ -3,17 +3,21 @@
 namespace App\Http\Controllers;
 
 use App\Models\Position;
+use App\Repositories\Interfaces\PositionRepositoryInterface;
 use Illuminate\Http\Request;
 
 class PositionController extends Controller
 {
+    private $position;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
+    function __construct(PositionRepositoryInterface $positionRepositoryInterface)
     {
+        $this->position = $positionRepositoryInterface;
+
         $this->middleware('permission:servidor-list|servidor-create|servidor-edit|servidor-delete', ['only' => ['index','store']]);
         $this->middleware('permission:servidor-create', ['only' => ['create','store']]);
         $this->middleware('permission:servidor-edit', ['only' => ['edit','update']]);
@@ -27,7 +31,8 @@ class PositionController extends Controller
      */
     public function index()
     {
-        $positions =  Position::paginate(20);
+        // $positions =   Position::paginate(20);
+        $positions = $this->position->getAllPositions(20);
 
         return view('positions.index', compact('positions'));
     }
@@ -58,7 +63,9 @@ class PositionController extends Controller
             //code...
             $position = new Position();
             $position->name = $request->name;
-            $position->save();
+            // $position->save();
+
+            $this->position->createPosition($position);
 
             activity()
             ->withProperties(['new_position' => $position])
@@ -74,12 +81,13 @@ class PositionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int  $idPosition
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($idPosition)
     {
-        //
+        // return Position::find($idPosition);
+        return $this->position->getPositionById($idPosition);
     }
 
     /**
@@ -90,7 +98,8 @@ class PositionController extends Controller
      */
     public function edit($id)
     {
-        $position = Position::find($id);
+        // $position = Position::find($id);
+        $position = $this->position->getPositionById($id);
         return view('positions.create', compact('position'));
     }
 
@@ -104,13 +113,16 @@ class PositionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $position = Position::find($id);
+            // $position = Position::find($id);
+            $position = $this->position->getPositionById($id);
 
             $old_name = $position->name;
             $new_name = $request->name;
 
             $position->name = $request->name;
-            $position->save();
+
+            $this->position->updatePosition($position);
+            // $position->save();
 
             activity()
             ->withProperties(['update_position' => $position])
@@ -126,11 +138,11 @@ class PositionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $idPosition
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($idPosition)
     {
-        //
+        $this->position->deletePosition($idPosition);
     }
 }

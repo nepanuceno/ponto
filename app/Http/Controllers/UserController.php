@@ -1,23 +1,28 @@
 <?php
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Models\User;
-use Spatie\Permission\Models\Role;
 use DB;
 use Hash;
+use App\Models\User;
 use Illuminate\Support\Arr;
+use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use App\Http\Controllers\Controller;
+use App\Repositories\Interfaces\UserRepositoryInterface;
 
 class UserController extends Controller
 {
+    private $userRepository;
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
+    function __construct(UserRepositoryInterface $userRepository)
     {
+        $this->userRepository = $userRepository;
+
         $this->middleware('permission:usuario-list|usuario-create|usuario-edit|usuario-delete', ['only' => ['index','store']]);
         $this->middleware('permission:usuario-create', ['only' => ['create','store']]);
         $this->middleware('permission:usuario-edit', ['only' => ['edit','update']]);
@@ -32,7 +37,8 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $data = User::orderBy('id','DESC')->paginate(5);
+        $data = $this->userRepository->getAllUsers();
+
         return view('users.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -66,8 +72,7 @@ class UserController extends Controller
         $input = $request->all();
         $input['password'] = Hash::make($input['password']);
 
-        $user = User::create($input);
-        $user->assignRole($request->input('roles'));
+        $user = $this->userRepository->createUser($request, $input);
 
         activity()
             ->withProperties(['new_user' => $user])
@@ -85,7 +90,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find($id);
+        $user = $this->userRepository->getUserById($id);
         return view('users.show',compact('user'));
     }
 
@@ -97,7 +102,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = $this->userRepository->getUserById($id);
         $roles = Role::pluck('name','name')->all();
         $userRole = $user->roles->pluck('name','name')->all();
 
@@ -127,8 +132,8 @@ class UserController extends Controller
             $input = Arr::except($input,array('password'));
         }
 
-        $user = User::find($id);
-        $user->update($input);
+        $user = $this->userRepository->userRepository->updateUser($input, $id);
+
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
         $user->assignRole($request->input('roles'));
@@ -149,12 +154,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user_name = $user->name;
-        $user->delete();
-
         activity()
-            ->log('Excluiu o usuário usuário '.$user_name);
+            ->log('Excluiu o usuário usuário '.$this->userRepository->deleteUser($id));
         return redirect()->route('users.index')
             ->with('success','User deleted successfully');
     }

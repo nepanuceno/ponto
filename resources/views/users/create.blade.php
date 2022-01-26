@@ -8,7 +8,7 @@
             </div>
 
             <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('users.index') }}"> Voltar</a>
+                <a class="btn btn-secondary float-right" href="{{ route('users.index') }}"> Voltar</a>
             </div>
         </div>
     </div>
@@ -63,7 +63,7 @@
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Cadastrar</button>
         </div>
     </div>
 

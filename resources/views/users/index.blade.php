@@ -9,7 +9,7 @@
             </div>
 
             <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('users.create') }}"> Criar Novo Usuário</a>
+                <a class="btn btn-secondary float-right" href="{{ route('users.create') }}"><i class="fas fa-user-plus"></i> Criar Novo Usuário</a>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
                         <td>
                             @if (!empty($user->getRoleNames()))
                                 @foreach ($user->getRoleNames() as $v)
-                                    <label class="badge badge-success">{{ $v }}</label>
+                                    <label class="badge badge-info">{{ $v }}</label>
                                 @endforeach
                             @endif
                         </td>

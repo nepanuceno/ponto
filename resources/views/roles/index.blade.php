@@ -6,9 +6,9 @@
             <div class="pull-left">
                 <h2>Gerenciamento de Perfis</h2>
             </div>
-            <div class="pull-right">
+            <div class="pull-right float-right">
                 @can('perfil-create')
-                    <a class="btn btn-success" href="{{ route('roles.create') }}"> Criar novo Perfil</a>
+                    <a class="btn btn-secondary" href="{{ route('roles.create') }}"><i class="fas fa-plus mr-1"></i> Criar novo Perfil</a>
                 @endcan
             </div>
         </div>

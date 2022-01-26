@@ -35,7 +35,7 @@
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Pesquisar</button>
+        <button class="btn btn-primary" type="submit"><i class="fas fa-search"></i> Pesquisar</button>
     </form>
 @stop
 

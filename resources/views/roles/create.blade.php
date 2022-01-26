@@ -6,8 +6,8 @@
             <div class="pull-left">
                 <h2>Criar Novo Perfil</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Voltar</a>
+            <div class="pull-right float-right">
+                <a class="btn btn-secondary" href="{{ route('roles.index') }}"><i class="fas fa-arrow-left mr-1"></i> Voltar</a>
             </div>
         </div>
     </div>
@@ -44,7 +44,7 @@
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-            <button type="submit" class="btn btn-primary">Cadastrar</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save mr-1"></i>Cadastrar</button>
         </div>
     </div>
 

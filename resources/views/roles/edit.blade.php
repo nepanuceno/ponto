@@ -13,9 +13,9 @@
 
             </div>
 
-            <div class="pull-right">
+            <div class="pull-right float-right">
 
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Voltar</a>
+                <a class="btn btn-secondary" href="{{ route('roles.index') }}"><i class="fas fa-arrow-left"></i> Voltar</a>
 
             </div>
 
@@ -85,7 +85,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
 
-            <button type="submit" class="btn btn-primary">Salvar</button>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Salvar</button>
 
         </div>
 

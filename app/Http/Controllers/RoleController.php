@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use Illuminate\Http\Request;
 // use App\Http\Controllers\Controller;
 use Spatie\Permission\Models\Role;
@@ -9,13 +10,16 @@ use DB;
 
 class RoleController extends Controller
 {
+    private $roleRepositoryInterface;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
+    function __construct(RoleRepositoryInterface $roleRepositoryInterface)
     {
+        $this->roleRepositoryInterface = $roleRepositoryInterface;
+
         $this->middleware('permission:perfil-list|perfil-create|perfil-edit|perfil-delete', ['only' => ['index','store']]);
         $this->middleware('permission:perfil-create', ['only' => ['create','store']]);
         $this->middleware('permission:perfil-edit', ['only' => ['edit','update']]);
@@ -30,7 +34,7 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $roles = Role::orderBy('id','DESC')->paginate(5);
+        $roles = $this->roleRepositoryInterface->getAllRoles(5);
         return view('roles.index',compact('roles'))
             ->with('i', ($request->input('page', 1) - 1) * 5);
     }
@@ -61,9 +65,11 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
-
-        $role = Role::create(['name' => $request->input('name')]);
-        $role->syncPermissions($request->input('permission'));
+        $role = $this->roleRepositoryInterface
+                ->createRole(
+                    ['name' => $request->input('name')],
+                    $request->input('permission')
+                );
 
         activity()
             ->withProperties(['new_role' => $role])
@@ -81,7 +87,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
+        $role = $this->roleRepositoryInterface->getRole($id);
         $rolePermissions = Permission::join("role_has_permissions","role_has_permissions.permission_id","=","permissions.id")
             ->where("role_has_permissions.role_id",$id)
             ->get();
@@ -96,7 +102,7 @@ class RoleController extends Controller
      */
     public function edit($id)
     {
-        $role = Role::find($id);
+        $role = $this->roleRepositoryInterface->getRole($id);
         $permission = Permission::get();
         $rolePermissions = DB::table("role_has_permissions")->where("role_has_permissions.role_id",$id)
             ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
@@ -119,11 +125,10 @@ class RoleController extends Controller
             'permission' => 'required',
         ]);
 
-        $role = Role::find($id);
+        $role = $this->roleRepositoryInterface->getRole($id);
         $role->name = $request->input('name');
-        $role->save();
-
-        $role->syncPermissions($request->input('permission'));
+        $this->roleRepositoryInterface->editRole($role);
+        $this->roleRepositoryInterface->syncPermission($request->input('permission'), $role);
 
         activity()
             ->withProperties(['update_role' => $role])
@@ -141,9 +146,7 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        $role = DB::table("roles")->where('id',$id);
-        $role_name = $role->name;
-        $role->delete();
+        $role_name = $this->roleRepositoryInterface->deleteRole($id);
 
         activity()
             ->log('Excluiu o perfil'. $role_name);

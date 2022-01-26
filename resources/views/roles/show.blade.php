@@ -6,8 +6,8 @@
             <div class="pull-left">
                 <h2> Detalhes do Perfil</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('roles.index') }}"> Voltar</a>
+            <div class="pull-right float-right">
+                <a class="btn btn-secondary" href="{{ route('roles.index') }}"><i class="fas fa-arrow-left"></i> Voltar</a>
             </div>
         </div>
     </div>

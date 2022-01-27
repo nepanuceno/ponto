@@ -17,8 +17,8 @@
             </div>
         </div>
     @endif
-
-    @if (session('danger'))
+    {{ session('danger') }}
+    {{-- @if (session('danger'))
         <div class="alert alert-danger d-flex align-items-center" role="alert">
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
                 <use xlink:href="#exclamation-triangle-fill" />
@@ -27,8 +27,8 @@
                 {{ session('danger') }}
             </div>
         </div>
-    @endif
-    @if ($errors->any())
+    @endif --}}
+    {{-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -36,7 +36,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif --}}
     <div class="card card-info">
         <form action="{{ isset($position) ? url('positions/' . $position->id) : url('positions') }}" method="POST">
             <div class="card-body">
@@ -54,8 +54,8 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary" type="submit">{{ isset($position) ? 'Salvar' : 'Cadastrar' }}</button>
-                <a class="btn btn-secondary float-right" href="{{ route('positions.index') }}">Voltar</a>
+                <button class="btn btn-primary" type="submit"><i class="fas fa-save mr-1"></i>{{ isset($position) ? 'Salvar' : 'Cadastrar' }}</button>
+                <a class="btn btn-secondary float-right" href="{{ route('positions.index') }}"><i class="fas fa-arrow-left mr-1"></i>Voltar</a>
             </div>
         </form>
     </div>

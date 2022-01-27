@@ -65,7 +65,7 @@ class PositionController extends Controller
             $position->name = $request->name;
             // $position->save();
 
-            $this->position->createPosition($position);
+            $this->position->createOrUpdatePosition($position);
 
             activity()
             ->withProperties(['new_position' => $position])
@@ -113,16 +113,11 @@ class PositionController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            // $position = Position::find($id);
             $position = $this->position->getPositionById($id);
-
             $old_name = $position->name;
             $new_name = $request->name;
-
             $position->name = $request->name;
-
-            $this->position->updatePosition($position);
-            // $position->save();
+            $this->position->createOrUpdatePosition($position);
 
             activity()
             ->withProperties(['update_position' => $position])

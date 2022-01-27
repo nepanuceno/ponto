@@ -19,12 +19,16 @@ interface PositionRepositoryInterface
     public function getPositionById($id);
 
      /**
-     * Display a listing of the Position.
+     * Create or Update Position.
      * @param  object  $positionDetails
      * @return \Illuminate\Http\Response
      */
-    public function createPosition($positionDetails);
+    public function createOrUpdatePosition($positionDetails);
 
-    public function updatePosition($positionNewDetails);
+    /**
+     * Create or Update Position.
+     * @param  int  $idPosition
+     * @return booelan
+     */
     public function deletePosition($id);
 }

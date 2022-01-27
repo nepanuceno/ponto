@@ -8,7 +8,7 @@ use App\Repositories\Interfaces\PositionRepositoryInterface;
 class PositionRepository implements PositionRepositoryInterface
 {
      /**
-     * Display a listing of the resource.
+     * Display a listing of the Positions.
      * @param  int  $paginate
      * @return \Illuminate\Http\Response
      */
@@ -22,9 +22,8 @@ class PositionRepository implements PositionRepositoryInterface
         }
     }
 
-
     /**
-     * Display a listing of the Position.
+     * Display one Position.
      * @param  int  $idPosition
      * @return \Illuminate\Http\Response
      */
@@ -34,28 +33,24 @@ class PositionRepository implements PositionRepositoryInterface
     }
 
     /**
-     * Display a listing of the Position.
+     * Create or Update Position.
      * @param  object  $positionDetails
      * @return \Illuminate\Http\Response
      */
-    public function createPosition($positionDetails)
+    public function createOrUpdatePosition($positionDetails)
     {
-        $position = Position::create($positionDetails);
-        return $position;
+        $positionDetails->save();
+        return $positionDetails;
     }
 
-
-
-    public function updatePosition($positionNewDetails)
-    {
-        return $positionNewDetails->save();
-
-    }
-
-
+     /**
+     * Create or Update Position.
+     * @param  int  $idPosition
+     * @return booelan
+     */
     public function deletePosition($positionId)
     {
         $position = Position::find($positionId);
-        $position->delete();
+        return $position->delete();
     }
 }

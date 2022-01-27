@@ -18,7 +18,7 @@
         </div>
     @endif
     @if (session('danger'))
-        <div class="alert alert-danger alert-dismiss d-flex align-items-center" role="alert">
+        <div class="alert alert-danger d-flex align-items-center" role="alert">
             <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
                 <use xlink:href="#exclamation-triangle-fill" />
             </svg>
@@ -29,7 +29,15 @@
     @endif
 
     @can('servidor-create')
-        <a class="btn btn-primary mb-4" href="{{ route('positions.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+        <div class="row">
+            <div class="col">
+                <div class="float-right mb-4">
+                    <a class="btn btn-secondary" href="{{ route('positions.create') }}">
+                        <span class="fas fa-plus mr-1"></span>Novo
+                    </a>
+                </div>
+            </div>
+        </div>
     @endcan
 
     @if (count($positions) > 0)

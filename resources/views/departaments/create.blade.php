@@ -58,8 +58,13 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary" type="submit">{{ isset($departament) ? 'Salvar' : 'Cadastrar' }}</button>
-                <a class="btn btn-secondary float-right" href="{{ route('departaments.index') }}">Voltar</a>
+                <button class="btn btn-primary" type="submit">
+                    <i class="fas fa-save mr-1"></i>
+                    {{ isset($departament) ? 'Salvar' : 'Cadastrar' }}
+                </button>
+                <a class="btn btn-secondary float-right" href="{{ route('departaments.index') }}">
+                    <i class="fas fa-arrow-left mr-1"></i>Voltar
+                </a>
             </div>
         </form>
     </div>

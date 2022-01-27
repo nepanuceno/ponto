@@ -3,23 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Departament;
+use App\Repositories\Interfaces\DepartamentRepositoryInterface;
 use Illuminate\Http\Request;
 
 class DepartamentController extends Controller
 {
+    private $departament;
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
+    function __construct(DepartamentRepositoryInterface $departamentRepositoryInterface)
     {
+        $this->departament = $departamentRepositoryInterface;
         $this->middleware('permission:servidor-list|servidor-create|servidor-edit|servidor-delete', ['only' => ['index','store']]);
         $this->middleware('permission:servidor-create', ['only' => ['create','store']]);
         $this->middleware('permission:servidor-edit', ['only' => ['edit','update']]);
         $this->middleware('permission:servidor-delete', ['only' => ['destroy']]);
     }
-
 
     /**
      *
@@ -29,7 +31,8 @@ class DepartamentController extends Controller
      */
     public function index()
     {
-        $departaments = Departament::where('status', 1)->paginate(10);
+        // $departaments = Departament::where('status', 1)->paginate(10);
+        $departaments = $this->departament->getAllDepartaments(10);
         return view('departaments.index', compact('departaments'));
     }
 
@@ -40,7 +43,8 @@ class DepartamentController extends Controller
      */
     public function create()
     {
-        $departaments = Departament::where('status', 1)->get();
+        // $departaments = Departament::where('status', 1)->get();
+        $departaments = $this->departament->getAllDepartaments();
         return view('departaments.create', compact('departaments'));
     }
 
@@ -60,7 +64,9 @@ class DepartamentController extends Controller
 
         $departament->name = $request->name;
         $departament->parent_id = $request->parent;
-        $departament->save();
+        // $departament->save();
+
+        $this->departament->createOrUpdateDepartament($departament);
 
         activity()
             ->withProperties(['new_departament' => $departament])
@@ -77,7 +83,7 @@ class DepartamentController extends Controller
      */
     public function show($id)
     {
-        //
+        $this->departament->getDepartamentById($id);
     }
 
     /**
@@ -88,8 +94,10 @@ class DepartamentController extends Controller
      */
     public function edit($id)
     {
-        $departament = Departament::find($id);
-        $departaments = Departament::where('status', 1)->get();
+        // $departament = Departament::find($id);
+        $departament = $this->departament->getDepartamentById($id);
+        // $departaments = Departament::where('status', 1)->get();
+        $departaments = $this->departament->getAllDepartaments();
 
         return view('departaments.create', compact('departament', 'departaments'));
     }
@@ -104,14 +112,16 @@ class DepartamentController extends Controller
     public function update(Request $request, $id)
     {
         $validated = $request->validate([
-            'name' => 'required|unique:departaments|max:255',
+            'name' => 'required|max:255',
         ]);
 
-        $departament = Departament::find($id);
+        // $departament = Departament::find($id);
+        $departament = $this->departament->getDepartamentById($id);
         $old_name = $departament->name;
         $departament->name = $request->name;
         $departament->parent_id = $request->parent;
-        $departament->save();
+        // $departament->save();
+        $this->departament->createOrUpdateDepartament($departament);
 
         activity()
             ->withProperties(['update_departament' => $departament])
@@ -128,10 +138,12 @@ class DepartamentController extends Controller
      */
     public function destroy($id)
     {
-        $departament = Departament::find($id);
+        // $departament = Departament::find($id);
+        $departament = $this->departament->getDepartamentById($id);
         if ($departament->status) {
             $departament->status = 0;
-            $departament->save();
+            // $departament->save();
+            $this->departament->createOrUpdateDepartament($departament);
         }
 
         activity()

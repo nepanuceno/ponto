@@ -8,7 +8,7 @@
 
 @section('content')
     @if (session('success'))
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismiss">
             {{ session('success') }}
         </div>
     @endif
@@ -19,7 +19,13 @@
     @endif
 
     @can('servidor-create')
-        <a class="btn btn-primary mb-4" href="{{ route('departaments.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-secondary mb-4 float-right" href="{{ route('departaments.create') }}">
+                    <span class="fas fa-plus mr-1"></span>Novo
+                </a>
+            </div>
+        </div>
     @endcan
     @if (count($departaments) > 0)
         <div class="card">

@@ -26,7 +26,7 @@ interface PositionRepositoryInterface
     public function createOrUpdatePosition($positionDetails);
 
     /**
-     * Create or Update Position.
+     * Delete Position.
      * @param  int  $idPosition
      * @return booelan
      */

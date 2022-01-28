@@ -5,18 +5,36 @@ namespace App\Http\Controllers;
 use App\Models\Employee;
 use App\Models\Position;
 use App\Models\Departament;
+use App\Repositories\Interfaces\DepartamentRepositoryInterface;
+use App\Repositories\Interfaces\EmployeeRepositoryInterface;
+use App\Repositories\Interfaces\PositionRepositoryInterface;
+use App\Repositories\Interfaces\RoleRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 
 class EmployeeController extends Controller
 {
+    private $employee;
+    private $departaments;
+    private $roles;
+    private $positions;
      /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    function __construct()
+    function __construct(
+        EmployeeRepositoryInterface $employeeRepositoryInterface,
+        DepartamentRepositoryInterface $departamentRepositoryInterface,
+        RoleRepositoryInterface $roleRepositoryInterface,
+        PositionRepositoryInterface $positionRepositoryInterface
+        )
     {
+        $this->employee = $employeeRepositoryInterface;
+        $this->departaments = $departamentRepositoryInterface;
+        $this->roles = $roleRepositoryInterface;
+        $this->positions = $positionRepositoryInterface;
+
         $this->middleware('permission:servidor-list|servidor-create|servidor-edit|servidor-delete', ['only' => ['index','store']]);
         $this->middleware('permission:servidor-create', ['only' => ['create','store']]);
         $this->middleware('permission:servidor-edit', ['only' => ['edit','update']]);
@@ -37,7 +55,8 @@ class EmployeeController extends Controller
             $tag = 1;
         }
 
-        $employees  = Employee::where('active', $tag) ->paginate(20);
+        // $employees  = Employee::where('active', $tag) ->paginate(20);
+        $employees = $this->employee->getAllEmployees(20, $tag);
         session()->forget('active');
         session(['active' => $tag]);
 
@@ -51,8 +70,10 @@ class EmployeeController extends Controller
      */
     public function create(Response $response)
     {
-        $departaments = Departament::orderBy('name', 'ASC')->get();
-        $positions = Position::orderBy('name', 'ASC')->get();
+        // $departaments = Departament::orderBy('name', 'ASC')->get();
+        $departaments = $this->departaments->getAllDepartaments();
+        // $positions = Position::orderBy('name', 'ASC')->get();
+        $positions = $this->positions->getAllPositions();
 
         return view('employees.create', compact('departaments','positions'));
     }
@@ -84,7 +105,8 @@ class EmployeeController extends Controller
             $employee->departament_id = $request->departament;
             $employee->position_id = $request->position;
 
-            $employee->save();
+            // $employee->save();
+            $this->employee->createOrUpdateEmployee($employee);
 
             activity()
             ->withProperties(['new_employee' => $employee])
@@ -106,7 +128,8 @@ class EmployeeController extends Controller
     public function show($id)
     {
         try {
-            $employee = Employee::where('id', $id)->first();
+            // $employee = Employee::where('id', $id)->first();
+            $employee = $this->employee->getEmployeeById($id);
             return view('employees.show', compact('employee'));
         } catch (\Throwable $th) {
             return redirect()->route('employees.index')->with('danger','Erro ao consultar Servidor!'.$th);
@@ -121,9 +144,14 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        $employee = Employee::find($id);
-        $departaments = Departament::all();
-        $positions = Position::all();
+        // $employee = Employee::find($id);
+        // $departaments = Departament::all();
+        // $positions = Position::all();
+
+
+        $employee = $this->employee->getEmployeeById($id);
+        $departaments = $this->departaments->getAllDepartaments();
+        $positions = $this->positions->getAllPositions();
 
         return view('employees.create', compact('employee', 'departaments', 'positions'));
     }
@@ -138,7 +166,8 @@ class EmployeeController extends Controller
     public function update(Request $request, $id)
     {
         try {
-            $employee = Employee::find($id);
+            // $employee = Employee::find($id);
+            $employee = $this->employee->getEmployeeById($id);
 
             $employee->name = $request->name;
             $employee->matriculation = $request->matriculation;
@@ -147,7 +176,8 @@ class EmployeeController extends Controller
             $employee->departament_id = $request->departament;
             $employee->position_id = $request->position;
 
-            $employee->save();
+            // $employee->save();
+            $employee = $this->employee->createOrUpdateEmployee($employee);
 
             activity()
                 ->withProperties(['update_employee' => $employee])
@@ -169,7 +199,8 @@ class EmployeeController extends Controller
     public function destroy($id)
     {
         try {
-            $employee = Employee::find($id);
+            // $employee = Employee::find($id);
+            $employee = $this->employee->getEmployeeById($id);
 
             if ($employee->active == 1) {
                 $employee->active = 0;
@@ -179,7 +210,8 @@ class EmployeeController extends Controller
                 $employee->active = 1;
                 $str_active = 'Ativou';
             }
-            $employee->save();
+            // $employee->save();
+            $this->employee->createOrUpdateEmployee($employee);
 
             activity()
                 ->withProperties(['active_employee' => $employee])

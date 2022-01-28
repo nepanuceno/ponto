@@ -18,19 +18,22 @@
         </div>
     @endif
 
-    @can('servidor-create')
-        @if (session('active') == 1)
-            <a class="btn btn-primary mb-4" href="{{ route('employees.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
-        @endif
-    @endcan
-
-    <a class="float-right btn btn-secondary" href="{{ url('set_active') }}">
-        @if (session('active') == 0)
-            <i class="fas fa-filter mr-2"></i>Mostrar Ativos
-        @else
-            <i class="fas fa-filter mr-2"></i>Mostrar Inativos
-        @endif
-    </a>
+    <div class="row mb-3">
+        <div class="col">
+            @can('servidor-create')
+                @if (session('active') == 1)
+                    <a class="btn btn-secondary" href="{{ route('employees.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+                @endif
+            @endcan
+            <a class="float-right btn btn-secondary" href="{{ url('set_active') }}">
+                @if (session('active') == 0)
+                    <i class="fas fa-filter mr-2"></i>Mostrar Ativos
+                @else
+                    <i class="fas fa-filter mr-2"></i>Mostrar Inativos
+                @endif
+            </a>
+        </div>
+    </div>
     @if (count($employees) > 0)
         <div class="card">
             <div class="card-body table-responsive p-0">

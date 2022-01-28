@@ -5,7 +5,7 @@
 @stop
 @section('content')
     <div class="float-right">
-        <a class="btn btn-secondary" href="{{ route('logs.index') }}"><i class="fas fa-arrow-left"></i>Voltar</a>
+        <a class="btn btn-secondary" href="{{ route('logs.index') }}"><i class="fas fa-arrow-left mr-1"></i>Voltar</a>
     </div>
 
     @if (count($logs) > 0)

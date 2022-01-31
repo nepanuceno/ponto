@@ -2,6 +2,14 @@
 
 @section('title', 'Cargo')
 
+@section('breadcrumb')
+    @if (isset($position))
+        {{ Breadcrumbs::render('positions.edit', $position) }}
+    @else
+        {{ Breadcrumbs::render('positions.create') }}
+    @endif
+@stop
+
 @section('content_header')
     <h1>Cadastro de Cargo</h1>
 @stop
@@ -54,8 +62,10 @@
                 </div>
             </div>
             <div class="card-footer">
-                <button class="btn btn-primary" type="submit"><i class="fas fa-save mr-1"></i>{{ isset($position) ? 'Salvar' : 'Cadastrar' }}</button>
-                <a class="btn btn-secondary float-right" href="{{ route('positions.index') }}"><i class="fas fa-arrow-left mr-1"></i>Voltar</a>
+                <button class="btn btn-primary" type="submit"><i
+                        class="fas fa-save mr-1"></i>{{ isset($position) ? 'Salvar' : 'Cadastrar' }}</button>
+                <a class="btn btn-secondary float-right" href="{{ route('positions.index') }}"><i
+                        class="fas fa-arrow-left mr-1"></i>Voltar</a>
             </div>
         </form>
     </div>

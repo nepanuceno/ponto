@@ -5,7 +5,9 @@
 @section('content_header')
     <h1>Departamentos</h1>
 @stop
-
+@section('breadcrumb')
+    {{ Breadcrumbs::render('departaments.index') }}
+@stop
 @section('content')
     @if (session('success'))
         <div class="alert alert-success alert-dismiss">

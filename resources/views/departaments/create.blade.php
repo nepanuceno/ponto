@@ -5,7 +5,13 @@
 @section('content_header')
     <h1>Cadastro de Departamentos</h1>
 @stop
-
+@section('breadcrumb')
+@if (isset($departament))
+{{ Breadcrumbs::render('departaments.edit', $departament) }}
+@else
+{{ Breadcrumbs::render('departaments.create') }}
+@endif
+@stop
 @section('content')
     @if (session('success'))
         <div class="alert alert-success">

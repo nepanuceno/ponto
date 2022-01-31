@@ -8,6 +8,7 @@
 
 {{-- Default Content Wrapper --}}
 <div class="content-wrapper {{ config('adminlte.classes_content_wrapper', '') }}">
+    @yield('breadcrumb') {{-- Add por Paulo Roberto Torres --}}
 
     {{-- Content Header --}}
     @hasSection('content_header')

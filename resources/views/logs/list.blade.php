@@ -3,6 +3,11 @@
 @section('content_header')
     <h1>Logs</h1>
 @stop
+
+@section('breadcrumb')
+    {{ Breadcrumbs::render('logs.list') }}
+@stop
+
 @section('content')
     <div class="float-right">
         <a class="btn btn-secondary" href="{{ route('logs.index') }}"><i class="fas fa-arrow-left mr-1"></i>Voltar</a>

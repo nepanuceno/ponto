@@ -6,6 +6,10 @@
     <h1>Servidores</h1>
 @stop
 
+@section('breadcrumb')
+    {{ Breadcrumbs::render('employees.index') }}
+@stop
+
 @section('content')
     @if (session('success'))
         <div class="alert alert-success alert-dismiss">
@@ -22,7 +26,8 @@
         <div class="col">
             @can('servidor-create')
                 @if (session('active') == 1)
-                    <a class="btn btn-secondary" href="{{ route('employees.create') }}"><span class="fas fa-plus mr-1"></span>Novo</a>
+                    <a class="btn btn-secondary" href="{{ route('employees.create') }}"><span
+                            class="fas fa-plus mr-1"></span>Novo</a>
                 @endif
             @endcan
             <a class="float-right btn btn-secondary" href="{{ url('set_active') }}">
@@ -79,7 +84,8 @@
                                                     <i class="fas fa-edit"></i> Editar</a>
                                             @endcan
                                             @can('servidor-list')
-                                                <a class="dropdown-item" href="{{ route('employees.show', $employee->id) }}">
+                                                <a class="dropdown-item"
+                                                    href="{{ route('employees.show', $employee->id) }}">
                                                     <i class="fas fa-info"></i> Informações</a>
                                             @endcan
                                         </div>
@@ -96,7 +102,8 @@
         @if (session('active') == 1)
             <div class="alert alert-info">Não existem Servidores ativos ou cadastrados!</div>
         @else
-            <div class="alert alert-info">Não existem Servidores desativados! <a href="{{ url('set_active') }}">Exibir Ativos</a></div>
+            <div class="alert alert-info">Não existem Servidores desativados! <a href="{{ url('set_active') }}">Exibir
+                    Ativos</a></div>
         @endif
     @endif
 @stop

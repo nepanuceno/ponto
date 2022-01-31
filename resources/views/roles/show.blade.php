@@ -1,5 +1,9 @@
 @extends('adminlte::page')
 
+@section('breadcrumb')
+    {{ Breadcrumbs::render('roles.show', $role) }}
+@stop
+
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">

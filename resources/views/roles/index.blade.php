@@ -1,5 +1,10 @@
 @extends('adminlte::page')
 @section('title', 'Perfis')
+
+@section('breadcrumb')
+    {{ Breadcrumbs::render('roles.index') }}
+@stop
+
 @section('content')
     <div class="row mb-2">
         <div class="col-lg-12 margin-tb">

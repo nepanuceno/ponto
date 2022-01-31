@@ -6,6 +6,10 @@
     <h1>Consulta de Logs</h1>
 @stop
 
+@section('breadcrumb')
+{{ Breadcrumbs::render('logs.index') }}
+@stop
+
 @section('content')
 
     <form action="{{ url('logs/list') }}" method="POST" name="logs">

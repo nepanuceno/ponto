@@ -6,6 +6,14 @@
     <h1>{{ isset($employeeCadastro) ? 'Edição de Servidor' : 'Cadastro de Servidor' }}</h1>
 @stop
 
+@section('breadcrumb')
+    @if (isset($employee))
+        {{ Breadcrumbs::render('employees.edit', $employee) }}
+    @else
+        {{ Breadcrumbs::render('employees.create') }}
+    @endif
+@stop
+
 @section('content')
     @if (session('success'))
         <div class="alert alert-success alert-dismiss">

@@ -1,5 +1,9 @@
 @extends('adminlte::page')
 
+@section('breadcrumb')
+    {{ Breadcrumbs::render('users.edit', $user) }}
+@stop
+
 @section('content')
 
     <div class="row">

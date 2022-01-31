@@ -27,11 +27,5 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
-
-        Blade::directive('dateToPtBr', function ($date) {
-            //$date = Carbon::createFromIsoFormat('YYYY-MM-DD', '2022-01-22', 'UTC');
-            //$date->isoFormat('DD/MM/YYYY'); // 2022/01/21 18:33
-        });
-
     }
 }

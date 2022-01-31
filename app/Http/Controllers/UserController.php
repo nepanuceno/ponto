@@ -132,10 +132,11 @@ class UserController extends Controller
             $input = Arr::except($input,array('password'));
         }
 
-        $user = $this->userRepository->userRepository->updateUser($input, $id);
+        $user = $this->userRepository->updateUser($input, $id);
 
         DB::table('model_has_roles')->where('model_id',$id)->delete();
 
+        $user = $this->userRepository->getUserById($id);
         $user->assignRole($request->input('roles'));
 
         activity()

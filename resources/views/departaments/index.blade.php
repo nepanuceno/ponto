@@ -52,11 +52,16 @@
                                             @csrf
                                             @method('DELETE')
                                             {{-- <input type="hidden" name="departament_id" value="{{ $departament->id }}"/> --}}
-                                            <button class="btn btn-app float-right disable"><i class="fas fa-trash"></i>
+                                            <button class="btn btn-app float-right disable">
+                                                <i class="fas fa-trash"></i>
                                                 Excluir</button>
                                         </form>
+                                        <a class="btn btn-app float-right" href="departaments/{{ $departament->id }}">
+                                            <i class="fas fa-info"></i>
+                                            Detalhes</a>
                                         <a class="btn btn-app float-right" href="departaments/{{ $departament->id }}/edit">
-                                            <i class="fas fa-edit"></i> Editar</a>
+                                            <i class="fas fa-edit"></i>
+                                            Editar</a>
                                     </td>
                                 @endcan
                             </tr>

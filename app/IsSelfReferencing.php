@@ -30,7 +30,7 @@ trait IsSelfReferencing
      */
     public function children()
     {
-        return $this->hasMany(static::class, $this->referenceKey)->latest();
+        return $this->hasMany(static::class, $this->referenceKey);//->latest();
     }
 
     /**

@@ -53,4 +53,12 @@ class DepartamentRepository implements DepartamentRepositoryInterface
         $departament = Departament::find($departamentId);
         return $departament->delete();
     }
+
+    public function rootDepartament()
+    {
+        return Departament::whereNull('parent_id')
+        ->where('status',1)
+        ->get();
+    }
+
 }

@@ -49,5 +49,4 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::get('set_active',[EmployeeController::class, 'changeActiveSearchEmployees']);
-
 });

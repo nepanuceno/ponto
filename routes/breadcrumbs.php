@@ -43,6 +43,10 @@ Breadcrumbs::for('departaments.edit', function (BreadcrumbTrail $trail, $departa
     $trail->parent('departaments.index');
     $trail->push('Editar Departamento', route('departaments.edit', $departament->id));
 });
+Breadcrumbs::for('departaments.show', function (BreadcrumbTrail $trail, $departament) {
+    $trail->parent('departaments.index');
+    $trail->push('Detalhes do Departamento', route('departaments.show', $departament->id));
+});
 
 
 // Home > [Employees]
@@ -57,6 +61,10 @@ Breadcrumbs::for('employees.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('employees.edit', function (BreadcrumbTrail $trail, $employee) {
     $trail->parent('employees.index');
     $trail->push('Editar Servidor', route('employees.edit', $employee->id));
+});
+Breadcrumbs::for('employees.show', function (BreadcrumbTrail $trail, $employee) {
+    $trail->parent('employees.index');
+    $trail->push('Detalhes Servidor', route('employees.show', $employee->id));
 });
 
 // Home > [Users]

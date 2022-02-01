@@ -31,4 +31,5 @@ interface DepartamentRepositoryInterface
      * @return booelan
      */
     public function deleteDepartament($id);
+    public function rootDepartament();
 }

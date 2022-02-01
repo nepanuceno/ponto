@@ -83,8 +83,30 @@ class DepartamentController extends Controller
      */
     public function show($id)
     {
-        $this->departament->getDepartamentById($id);
+        $departament = $this->departament->getDepartamentById($id);
+        $root = $this->departament->rootDepartament()[0];
+        $output = $this->output($root->descendants, $departament);
+
+        $output = "<ul class=\"tree\"><li><code>".$root->name."</code>".$output."</li></ul>";
+
+        return view('departaments.show', compact('output','departament'));
     }
+
+    public function output($projects, $departament)
+    {
+                $string = "<ul>";
+                foreach ($projects as $i => $project) {
+                    $string .= "<li>";
+                    $string .= "<code>".$project['name']."</code>";
+                    if (count($project['children'])) {
+                        $string .= $this->output($project['children'], $departament);
+                    }
+                    $string .= "</li>";
+                }
+                $string .= "</ul>";
+        return $string;
+    }
+
 
     /**
      * Show the form for editing the specified resource.

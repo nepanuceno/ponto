@@ -2,6 +2,10 @@
 
 @section('title', 'Informações do Servidor')
 
+@section('breadcrumb')
+    {{ Breadcrumbs::render('employees.show', $employee) }}
+@stop
+
 @section('content_header')
     <h1>{{ isset($employeeCadastro) ? 'Edição de Servidor' : 'Cadastro de Servidor' }}</h1>
 @stop

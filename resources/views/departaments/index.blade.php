@@ -48,20 +48,35 @@
                                 @can(['servidor-edit', 'servidor-delete'])
 
                                     <td>
-                                        <form action="{{ url('departaments/' . $departament->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            {{-- <input type="hidden" name="departament_id" value="{{ $departament->id }}"/> --}}
-                                            <button class="btn btn-app float-right disable">
-                                                <i class="fas fa-trash"></i>
-                                                Excluir</button>
-                                        </form>
-                                        <a class="btn btn-app float-right" href="departaments/{{ $departament->id }}">
-                                            <i class="fas fa-info"></i>
-                                            Detalhes</a>
-                                        <a class="btn btn-app float-right" href="departaments/{{ $departament->id }}/edit">
-                                            <i class="fas fa-edit"></i>
-                                            Editar</a>
+                                        <div class="btn-group float-right">
+                                            <button type="button" class="btn btn-default">Ações</button>
+                                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                                aria-expanded="false">
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <div class="dropdown-menu" role="menu" style="">
+                                                @can('servidor-edit')
+                                                    <form action="{{ url('departaments/' . $departament->id) }}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        {{-- <input type="hidden" name="departament_id" value="{{ $departament->id }}"/> --}}
+                                                        <button class="dropdown-item disable"
+                                                            data-active="{{ $departament->status == 1 ? 'Desativar' : 'Reativar' }}"><i
+                                                                class="fas fa-trash"></i>
+                                                            {{ $departament->status == 1 ? 'Desativar' : 'Reativar' }}
+                                                        </button>
+                                                    </form>
+                                                @endcan
+                                                @can('servidor-edit')
+                                                    <a class="dropdown-item" href="departaments/{{ $departament->id }}/edit">
+                                                        <i class="fas fa-edit"></i> Editar</a>
+                                                @endcan
+                                                @can('servidor-list')
+                                                    <a class="dropdown-item" href="{{ route('departaments.show', $departament->id) }}">
+                                                        <i class="fas fa-info"></i> Informações</a>
+                                                @endcan
+                                            </div>
+                                        </div>
                                     </td>
                                 @endcan
                             </tr>

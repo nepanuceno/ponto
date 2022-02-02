@@ -97,10 +97,15 @@ class DepartamentController extends Controller
                 $string = "<ul>";
                 foreach ($projects as $i => $project) {
                     $string .= "<li>";
-                    if($departament->id == $project->id)
-                    $string .= "<code class='color'>".$project['name']."</code>";
-                    else
-                    $string .= "<code>".$project['name']."</code>";
+                    if($departament->id == $project->id) {
+                        $string .= "<code class='color'>".$project['name']."</code>";
+                    }
+                    else {
+                        if ($project->status == 0)
+                        $string .= "<code class='disable'>".$project['name']."</code>";
+                        else
+                        $string .= "<code>".$project['name']."</code>";
+                    }
                     if (count($project['children'])) {
                         $string .= $this->output($project['children'], $departament);
                     }

@@ -116,6 +116,9 @@
         .color{
             background-color: lightgreen;
         }
+        .disable{
+            background-color:palevioletred;
+        }
 
     </style>
 @stop

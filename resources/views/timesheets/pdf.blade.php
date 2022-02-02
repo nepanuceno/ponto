@@ -53,6 +53,11 @@
                 @endforeach
             </tbody>
         </table>
+        @if(count($arr_days) < 30)
+            <br>
+            <br>
+            <br>
+        @endif
         <p class="assinatura">Assinatura do chefe imediato</p>
     @endforeach
 @stop

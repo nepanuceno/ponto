@@ -18,10 +18,6 @@
 
 @section('css')
     <style>
-        body {
-            font-family: Calibri, Segoe, "Segoe UI", "Gill Sans", "Gill Sans MT", sans-serif;
-        }
-
         /* It's supposed to look like a tree diagram */
         .tree,
         .tree ul,
@@ -76,7 +72,7 @@
             border-radius: .2em;
             display: inline-block;
             margin: 0 .2em .5em;
-            padding: .2em .5em;
+            padding: .8em .6em;
             position: relative;
         }
 

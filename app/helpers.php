@@ -3,14 +3,14 @@
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 
-function setActiveOrInactive($request)
+function setActiveOrInactive($request, $description)
 {
-    if (isset($request->inactive)){
-        session()->forget('inactive');
-        session(['inactive' => $request->inactive]);
+    if (isset($request->status)){
+        session()->forget($description);
+        session([$description => $request->status]);
     } else {
-        session()->forget('inactive');
-        session(['inactive' => null]);
+        session()->forget($description);
+        session([$description => null]);
     }
 }
 

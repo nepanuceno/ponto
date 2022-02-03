@@ -32,9 +32,9 @@ class DepartamentController extends Controller
     public function index(Request $request)
     {
         if (!isset($request->page)) { //If there is no pagination, handle the session
-            setActiveOrInactive($request); //Custom Helper
+            setActiveOrInactive($request, 'departaments_inactives'); //Custom Helper
         }
-        $departaments = $this->departament->getAllDepartaments(10, session('inactive'));
+        $departaments = $this->departament->getAllDepartaments(10, session('departaments_inactives'));
         return view('departaments.index', compact('departaments'));
     }
 

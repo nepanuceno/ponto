@@ -27,13 +27,12 @@
                     <span class="fas fa-plus mr-1"></span>Novo
                 </a>
 
-
-                @if (session('inactive') == 1)
-                    <a class="btn btn-warning mb-4 float-left" href="{{ route('departaments.index', ['inactive' => null]) }}">
+                @if (session('departaments_inactives') == 1)
+                    <a class="btn btn-warning mb-4 float-left" href="{{ route('departaments.index', ['status' => null]) }}">
                         <span class="fas fa-eye mr-1"></span>Mostrar Somente Ativos
                     </a>
                 @else
-                    <a class="btn btn-secondary mb-4 float-left" href="{{ route('departaments.index', ['inactive' => 1]) }}">
+                    <a class="btn btn-secondary mb-4 float-left" href="{{ route('departaments.index', ['status' => 1]) }}">
                         <span class="fas fa-eye mr-1"></span>Mostrar Inativos
                     </a>
                 @endcan

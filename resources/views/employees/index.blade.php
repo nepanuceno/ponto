@@ -30,12 +30,9 @@
                             class="fas fa-plus mr-1"></span>Novo</a>
                 @endif
             @endcan
-            <a class="float-right btn btn-secondary" href="{{ url('set_active') }}">
-                @if (session('active') == 0)
-                    <i class="fas fa-filter mr-2"></i>Mostrar Ativos
-                @else
-                    <i class="fas fa-filter mr-2"></i>Mostrar Inativos
-                @endif
+            <a class="float-right btn {{ session('active') == 0 ? 'btn-warning' : 'btn-secondary' }}"
+                href="{{ url('set_active') }}">
+                <i class="fas fa-eye mr-2"></i>Mostrar {{ session('active') == 0 ? 'Ativos' : 'Inativos' }}
             </a>
         </div>
     </div>

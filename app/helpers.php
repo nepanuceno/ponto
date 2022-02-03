@@ -3,6 +3,16 @@
 use Carbon\Carbon;
 use Carbon\CarbonInterface;
 
+function setActiveOrInactive($request)
+{
+    if (isset($request->inactive)){
+        session()->forget('inactive');
+        session(['inactive' => $request->inactive]);
+    } else {
+        session()->forget('inactive');
+        session(['inactive' => null]);
+    }
+}
 
 function formatDateToSql($date, $showHours=false){
     $date = Carbon::createFromIsoFormat('DD/MM/Y h:mm a', $date, 'UTC');

@@ -29,10 +29,12 @@ class DepartamentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // $departaments = Departament::where('status', 1)->paginate(10);
-        $departaments = $this->departament->getAllDepartaments(10);
+        if (!isset($request->page)) { //If there is no pagination, handle the session
+            setActiveOrInactive($request); //Custom Helper
+        }
+        $departaments = $this->departament->getAllDepartaments(10, session('inactive'));
         return view('departaments.index', compact('departaments'));
     }
 

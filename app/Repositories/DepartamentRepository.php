@@ -12,10 +12,14 @@ class DepartamentRepository implements DepartamentRepositoryInterface
      * @param  int  $paginate
      * @return \Illuminate\Http\Response
      */
-    public function getAllDepartaments($paginate=false)
+    public function getAllDepartaments($paginate=false, $inactive=null)
     {
         if ($paginate) {
-             return Departament::where('status', 1)->paginate($paginate);
+            if ($inactive==null){
+                return Departament::where('status', 1)->paginate($paginate);
+            }
+            else
+                return Departament::paginate($paginate);
         }
         else {
              return Departament::where('status', 1)->get();

@@ -1,3 +1,6 @@
+This is a simple Laravel Framework system to generate PDF timesheets. You just need to register the departments, respecting the hierarchy organization chart between them, register the positions and finally the Employees of the company or institution.
+Okay, with that, you can now generate your timesheets. 
+
 ### Execute cada comando na ordem a seguir
 
 ```composer install```

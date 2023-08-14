@@ -103,6 +103,11 @@ Breadcrumbs::for('roles.show', function (BreadcrumbTrail $trail, $user) {
     $trail->push('Detalhes do Perfil', route('roles.show', $user->id));
 });
 
+Breadcrumbs::for('settings.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('home');
+    $trail->push('Configurações', route('settings.index'));
+});
+
 
 // Home > [Logs]
 Breadcrumbs::for('logs.index', function (BreadcrumbTrail $trail) {

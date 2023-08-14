@@ -301,12 +301,12 @@ return [
             'url' => 'users',
             'can' => 'usuario-list'
         ],
-        // [
-        //     'text' => 'Permissões',
-        //     'icon' => 'fas fa-user-lock',
-        //     'url' => 'permissions',
-        //     'can' => 'permissao-list'
-        // ],
+        [
+            'text' => 'Permissões',
+            'icon' => 'fas fa-user-lock',
+            'url' => 'permissions',
+            'can' => 'permissao-list'
+        ],
         [
             'text' => 'Perfis',
             'icon' => 'fas fa-user-shield',
@@ -318,6 +318,12 @@ return [
             'icon' => 'fas fa-eye',
             'url' => 'logs/index',
             'can' => 'logs-list'
+        ],
+        [
+            'text' => 'Configurações',
+            'icon' => 'fas fa-cog',
+            'url' => 'system-settings/index',
+            'can' => 'system-settings',
         ],
         // ['header' => 'account_settings'],
         // [

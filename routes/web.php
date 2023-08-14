@@ -8,8 +8,9 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\TimeSheetController;
-// use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\DepartamentController;
+use App\Http\Controllers\SettingsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
-    // Route::resource('permissions', PermissionController::class);
+    Route::resource('permissions', PermissionController::class);
 
     Route::resource('departaments', DepartamentController::class);
     Route::resource('positions', PositionController::class);
@@ -46,6 +47,11 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/list', [LogsController::class, 'list'])->name('logs.list');
         Route::get('/index', [LogsController::class, 'index'])->name('logs.index');
 
+    });
+
+    Route::prefix('system-settings')->group(function(){
+        Route::get('/index', [SettingsController::class, 'index'])->name('settings.index');
+        Route::get('/logo', [SettingsController::class, 'logo'])->name('settings.logo');
     });
 
     Route::get('set_active',[EmployeeController::class, 'changeActiveSearchEmployees']);

@@ -4,6 +4,7 @@ Okay, with that, you can now generate your timesheets.
 ### Execute cada comando na ordem a seguir
 
 ```composer install```
+```php artisan key:generate```
 ```npm install```
 ```npm run dev```
 #### acesse o servidor de banco de dados e crie o banco "livro-de-pontos"

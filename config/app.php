@@ -16,6 +16,12 @@ return [
     'name' => env('APP_NAME', 'Laravel'),
 
     /*
+        Interprise Name
+    */
+    'interprise_name' => env('INTERPRISE_NAME', 'Interprise Name'),
+
+
+    /*
     |--------------------------------------------------------------------------
     | Application Environment
     |--------------------------------------------------------------------------

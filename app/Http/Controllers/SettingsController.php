@@ -11,7 +11,17 @@ class SettingsController extends Controller
         return view('settings.index');
     }
 
-    public function logo()
+    public function getLogo()
+    {
+
+    }
+
+    public function getLayout()
+    {
+
+    }
+
+    public function getThemes()
     {
 
     }

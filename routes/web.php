@@ -2,15 +2,17 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LogsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\TimeSheetController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\DepartamentController;
-use App\Http\Controllers\SettingsController;
+use App\Http\Controllers\Settings\LogoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('system-settings')->group(function(){
         Route::get('/index', [SettingsController::class, 'index'])->name('settings.index');
-        Route::get('/logo', [SettingsController::class, 'logo'])->name('settings.logo');
+        Route::resource('logo', LogoController::class);
     });
 
     Route::get('set_active',[EmployeeController::class, 'changeActiveSearchEmployees']);

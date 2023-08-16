@@ -108,6 +108,11 @@ Breadcrumbs::for('settings.index', function (BreadcrumbTrail $trail) {
     $trail->push('Configurações', route('settings.index'));
 });
 
+Breadcrumbs::for('logo.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('settings.index');
+    $trail->push('Cadastro de Logo', route('logo.index'));
+});
+
 
 // Home > [Logs]
 Breadcrumbs::for('logs.index', function (BreadcrumbTrail $trail) {

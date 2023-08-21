@@ -40,27 +40,27 @@ class TimeSheetController extends Controller
     public function makeTimeSheet(Request $request) {
         $dt = Carbon::create($request->year, $request->month);
         $month =$this->transtaleMonth($dt->format('m'));
-        // $day =$this->translateDay($dt->isoFormat('d'));
         $year = $request->year;
-
 
         $month_days = range(1, $dt->daysInMonth);
 
         $arr_days = array();
         foreach($month_days as $key=>$day) {
             $dt = Carbon::create($request->year, $request->month, $day);
-            $arr_aux = array('day'=> $key+1, 'week_day'=> $this->translateDay($dt->isoFormat('d')));
+            $arr_aux = array('day'=> $key+1, 'week_day'=> $this->translateDay($dt->isoFormat('d')), 'raw_day' =>$dt->isoFormat('d'));
             $arr_days[] = $arr_aux;
         }
 
-
         $employees = Employee::where('active', 1);
-        if ($request->departament != 0)
-        $employees->where('departament_id', $request->departament);
+        if ($request->departament != 0) {
+            $employees->where('departament_id', $request->departament);
+        }
         elseif ($request->employee != 0) {
             $employees->where('id', $request->employee);
         }
         $employees = $employees->get();
+
+        // return view('timesheets.pdf', compact('employees', 'arr_days', 'month', 'year'));
 
         $pdf = PDF::loadView('timesheets.pdf', compact('employees', 'arr_days', 'month', 'year'))
             ->setOptions(
@@ -78,17 +78,11 @@ class TimeSheetController extends Controller
             ->log('Gerou um livro de pontos em '. date('d/m/Y'));
 
         return $pdf_generated;
-        //View::share('book_employees', [$employees, $arr_days, $month, $year]);
-        //return view('timesheets.maketimesheets', compact('employees', 'arr_days', 'month', 'year'));
     }
 
     // Generate PDF
     public function createPDF() {
-
-        // share data to view
-        // view()->share('employee',$data);
         $pdf = PDF::loadView('timesheets.pdf')->setOptions(['defaultFont' => 'sans-serif']);
-        //$pdf .= '<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">';
         return $pdf->download('livroPonto.pdf');
     }
 

@@ -24,7 +24,7 @@ class Logo extends FormRequest
     public function rules()
     {
         return [
-            'file_logo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'file_logo' => 'required|image|mimes:jpeg,png,jpg,svg|max:1024',
         ];
     }
 }

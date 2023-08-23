@@ -60,7 +60,7 @@ class TimeSheetController extends Controller
         }
         $employees = $employees->get();
 
-        // return view('timesheets.pdf', compact('employees', 'arr_days', 'month', 'year'));
+        //return view('timesheets.pdf', compact('employees', 'arr_days', 'month', 'year'));
 
         $pdf = PDF::loadView('timesheets.pdf', compact('employees', 'arr_days', 'month', 'year'))
             ->setOptions(

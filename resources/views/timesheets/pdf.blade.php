@@ -52,7 +52,7 @@
             </tr>
         </table>
 
-        <table class="styled-table" border='1'>
+        <table class="styled-table">
             <thead>
                 <tr>
                     <th class="text-center text-middle" width='3%' rowspan="3">DIA</th>
@@ -79,21 +79,21 @@
             <tbody>
                 @foreach ($arr_days as $day)
                     <tr>
-                        <td class="text-center" width="3%">
+                        <td class="text-center small-space" width="3%">
                             <span>{{ $day['day'] }}</span>
                             <span class="text-middle">{{ mb_substr($day['week_day'], 0, 3) }}</span>
                         </td>
-                        <td class="text-center">:</td>
-                        <td class="text-center">
+                        <td class="text-center small-space">:</td>
+                        <td class="text-center small-space">
                             {{ ($day['raw_day'] == 0 || $day['raw_day'] == 6) ? '*** DESCANSO ***':'' }}
                         </td>
-                        <td class="text-center">:</td>
-                        <td class="text-center"></td>
-                        <td class="text-center">:</td>
-                        <td class="text-center"></td>
-                        <td class="text-center">:</td>
-                        <td class="text-center"></td>
-                        <td class="text-center">
+                        <td class="text-center small-space">:</td>
+                        <td class="text-center small-space"></td>
+                        <td class="text-center small-space">:</td>
+                        <td class="text-center small-space"></td>
+                        <td class="text-center small-space">:</td>
+                        <td class="text-center small-space"></td>
+                        <td class="text-center small-space">
                             --- <input type="checkbox"/>
                         </td>
                     </tr>
@@ -105,6 +105,26 @@
             <br>
             <br>
         @endif
-        <p class="assinatura">Assinatura do chefe imediato</p>
+
+        <table class="assinaturas">
+            <tr>
+                <td class="assinatura-data" colspan="2">
+                    Palmas, TO. ____ de ________________ de 20____
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">Confirmamos a frequência.</td>
+            </tr>
+            <tr>
+                <td class="text-small">
+                    <hr>
+                    Assinatura do Servidor
+                </td>
+                <td class="text-small">
+                    <hr>
+                    Assinatura do chefe imediato
+                </td>
+            </tr>
+        </table>
     @endforeach
 @stop

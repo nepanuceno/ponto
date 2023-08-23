@@ -8,10 +8,7 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
-
-    <!-- Styles -->
-    {{-- <link rel="stylesheet" media="dompdf" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> --}}
+    {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
     <style>
         @page {
             margin-top: 5;
@@ -19,33 +16,25 @@
             margin-left: 5;
             margin-right: 5;
         }
+
+        th, td {
+            padding: 1px;
+        }
+
+        .header {
+            border: none;
+        }
+
+        .styled-table {
+            border: 1px solid black;
+        }
+
         .styled-table, .header {
             border-collapse: collapse;
             margin: 1px 0;
             font-size: 0.7rem;
             font-family: sans-serif;
             min-width: 100%;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-        }
-
-        .styled-table thead tr {
-            background-color: #ffffff;
-            color: #000000;
-            /* text-align: left; */
-        }
-
-        .styled-table th,
-        .styled-table td {
-            padding: 5px 5px;
-        }
-
-        .header th, td {
-            padding: 2px 4px;
-            text-align: left;
-        }
-
-        .header tr td {
-            padding: 1px;
         }
 
         .header-style {
@@ -60,6 +49,18 @@
             border-left-style: hidden;
             border-right-style: solid;
             border-bottom-style: solid;
+        }
+
+        .styled-table {
+            border-collapse: collapse;
+        }
+
+        .styled-table th {
+            border: 1px solid black;
+        }
+
+        .styled-table tbody > tr {
+            border: 1px solid black;
         }
 
         .titulo-documento {
@@ -78,25 +79,6 @@
             padding: 1px 1px;
         }
 
-        /* .styled-table td {
-            border: 1px solid #0000;
-        } */
-        /* .styled-table tbody tr {
-            border-bottom: 1px solid #050000;
-        } */
-
-        /* .styled-table tbody tr:nth-of-type(even) {
-            background-color: #f0ebeb;
-        } */
-
-        /* .styled-table tbody tr:last-of-type {
-            border-bottom: 2px solid #009879;
-        } */
-
-        /* .styled-table tbody tr.active-row {
-            font-weight: 300;
-            color: #009879;
-        } */
         .assinatura {
             text-align: center;
             margin-top: 20px;
@@ -121,6 +103,21 @@
             font-weight: 200 !important;
         }
 
+        .assinaturas {
+            margin-top: 10px;
+            border: 1px black;
+            border-style: solid;
+            border-radius: 12px;
+            width:100%;
+        }
+
+        .assinatura-data {
+            text-align: right;
+        }
+
+        hr {
+            margin: 10px 20px 2px 0;
+        }
     </style>
     <title>PDF</title>
 </head>
